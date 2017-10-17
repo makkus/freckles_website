@@ -1,0 +1,21 @@
+title: freckles!!!
+description: "Documentation that is not really documentation for some of my programming projects."
+author:
+  name: Markus Binsteiner
+  email: 'makkus@frkl.io'
+  url: https://freckles.io
+  logo:
+  gravatar: makkus@gmail.com
+  description: ""
+blog:
+  route: ''
+metadata:
+    description: 'Pinpress is a minimal Theme designed for blogger, converted to Grav.'
+taxonomies: [category,tag,month]
+
+# menu:
+  # - url: error
+    # text: Error Page
+
+# Copyright
+copyright: <i class="fa fa-copyright"></i> <a href="mailto:makkus@frkl.io">Markus Binsteiner</a>, 2017
