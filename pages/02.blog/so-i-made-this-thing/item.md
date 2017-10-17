@@ -1,7 +1,7 @@
 ---
 title: 'So, I made this ..thing'
 published: true
-date: '15-09-2017 00:00'
+date: '17-10-2017 00:00'
 taxonomy:
     category:
         - blog
