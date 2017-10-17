@@ -1,0 +1,4 @@
+.vagrant
+accounts/admin.yaml
+config/security.yaml
+temp/
