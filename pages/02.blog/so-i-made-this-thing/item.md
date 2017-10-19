@@ -246,7 +246,7 @@ $ curl https://freckles.io | bash -s -- frecklecute ansible-task --become --task
 
 Not going to explain what that does, as it should be obvious by now (hint: `mongrelion.docker` is an *Ansible role* that installs ... well). You get the idea...
 
-## Other use-cases
+## Use-cases
 
 Here is a random list of other use cases *freckles* can be used for:
 
