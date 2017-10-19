@@ -20,7 +20,7 @@ It was one of those 'scratch-your-own-itch'-situations, I suppose. Only, I reall
 [TOC]
 For one, because I knew exactly how long it'd take me to write this if I wanted to do it properly. And I really thought it is something so obvious that sooner or later somebody will build (something like) it, and all I have to do is go on Reddit, moan a bit about how it's bloated, and (obviously) written in the wrong language. But I'll use it anyway, you can thank me later. 
 
-It looks like I was wrong though, and it's either not obvious at all, or other people were playing the same waiting game as me. Or, of course, it is just a really stupid idea. Not yet counting that one out either. Whatever the reason, I waited for a few years, and nobody scratched my itch. So, eventually I gave in and wrote that ...thing. Named the thing 'freckles'. Uploaded it to Github: [https://github.com/makkus/freckles](https://github.com/makkus/freckles)
+It looks like I was wrong though, and it's either not obvious at all, or other people were playing the same waiting game as me. Or, of course, it is just a really stupid idea. Not yet counting that one out either. Whatever the reason, I waited for a few years, and nobody scratched my itch. So, eventually I gave in and wrote that ...thing. Named the thing '**freckles**'. Uploaded it to Github: [https://github.com/makkus/freckles](https://github.com/makkus/freckles)
 
 Although it's not quite finished yet, I consider it usable now.
 
