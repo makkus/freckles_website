@@ -179,6 +179,63 @@ In order for all that to work I had to prepare an [Ansible role](https://github.
 
 As is the case with the *readthedocs* example above, that setup can easily be used in a lot of different situations or technologies (Docker, Vagrant, LXC, physical host...).
 
+### Scpripting
+
+In addition to all this, *freckles* can also be used to quickly write commandline scripts that use `frecklecute` as their sort of 'interpreter'. Again, not going into any detail here, instead, check out [this link](https://docs.freckles.io/en/latest/frecklecute_command.html#frecklecutables-in-your-path), and [this link](https://docs.freckles.io/en/latest/writing_frecklecutables.html)
+
+A quick example script to create a folder using the 'file' *Ansible module*, and user-input for the folder to create would be:
+
+```
+#! /usr/bin/env frecklecute
+doc:
+  help: create a folder
+args:
+  path:
+    help: the folder path
+    default: ~/cool_folder
+tasks:
+  - file:
+      state: directory
+```
+
+Saved in a file called 'folder-create', chmod'ed to be executable, and either put in your PATH or executed directly would look like:
+
+```
+$ create-folder --help
+Usage: frecklecute ./create-folder [OPTIONS]
+
+  create a folder
+
+Options:
+  --path TEXT  the folder path
+  --help       Show this message and exit.
+
+  For more information about frecklecute and the freckles project, please
+  visit: https://github.com/makkus/freckles
+  
+$ create-folder --path ~/now-that-is-a-folder-created-in-an-interesting-way
+
+* starting tasks (on 'localhost')...
+ * starting custom tasks:
+     * file... ok (changed)
+   => ok (changed)
+```
+
+Or upload it to github and execute it like so:
+
+```
+frecklecute  gh:makkus/freckles/examples/create-folder --path ~/a-folder-created-from-a-remote-frecklecutable
+
+* starting tasks (on 'localhost')...
+ * starting custom tasks:
+     * file... ok (changed)
+   => ok (changed)
+```
+
+Obviously, this all is a tad overkill just to create a folder. But as I've mentioned before, this can be used with all the *Ansible modules* and *roles* available. Galaxy is the limit...
+
+And, if you really want to go all out, you can even combine this with the online bootstraping of *freckles* which means neither *freckles* nor your *frecklecutable* need to be on a machine to be able to run it. Only `curl` or `wget`. And you don't need any root permissions either, as long as the *Ansible roles* or *modules* you use don't require it. I think that's quite cool. And probably pretty dangerous too, in the hand of fools. Good thing there are hardly any fools in this world!
+
 
 ## Other use-cases
 
