@@ -1,6 +1,6 @@
 enabled: true
 from: your@email.here
-to: makkus@frkl.io
+to: makkus@posteo.de
 to_name: 'Freckles website administrator'
 mailer:
   engine: mail
