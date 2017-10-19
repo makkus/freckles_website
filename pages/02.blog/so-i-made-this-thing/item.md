@@ -244,7 +244,7 @@ And, for extra credit, and those of use who only want to quickly execute an Ansi
 $ curl https://freckles.io | bash -s -- frecklecute ansible-task --become --task-name mongrelion.docker
 ```
 
-Not going to explain what that does, as it should be obvious by now (hint: `mongrelion.docker` is an *Ansible role* that installs ... well)...
+Not going to explain what that does, as it should be obvious by now (hint: `mongrelion.docker` is an *Ansible role* that installs ... well)... You get the idea...
 
 ## Other use-cases
 
