@@ -2,7 +2,7 @@ absolute_urls: false
 param_sep: ':'
 wrapped_site: false
 reverse_proxy_setup: false
-force_ssl: false
+force_ssl: true
 username_regex: '^[a-z0-9_-]{3,16}$'
 pwd_regex: '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
 languages:
@@ -118,8 +118,8 @@ images:
   auto_fix_orientation: false
 media:
   enable_media_timestamp: false
-  upload_limit: 0
   auto_metadata_exif: false
+  upload_limit: 2097152
 session:
   enabled: true
   timeout: 1800
