@@ -236,6 +236,15 @@ Obviously, this all is a tad overkill just to create a folder. But as I've menti
 
 And, if you really want to go all out, you can even combine this with the online bootstraping of *freckles* which means neither *freckles* nor your *frecklecutable* need to be on a machine to be able to run it. Only `curl` or `wget`. And you don't need any root permissions either, as long as the *Ansible roles* or *modules* you use don't require it. I think that's quite cool. And probably pretty dangerous too, in the hand of fools. Good thing there are hardly any fools in this world!
 
+### Direct Ansible role or module execution
+
+And, for extra credit, and for those of use who only want to quickly execute an Ansible role, on a machine without anything useful installed (again, expect for `curl` or `wget`):
+
+```
+$ curl https://freckles.io frecklecute ansible-task --ask-become-pass true --task-name mongrelion.docker
+```
+
+Not going to explain what that does, as it should be obvious by now (hint: `mongrelion.docker` is an *Ansible role* that installs ... well)...
 
 ## Other use-cases
 
