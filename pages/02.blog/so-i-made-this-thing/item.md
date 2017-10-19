@@ -241,7 +241,7 @@ And, if you really want to go all out, you can even combine this with the online
 And, for extra credit, and those of use who only want to quickly execute an Ansible role, on a machine without anything useful installed (again, expect for `curl` or `wget`):
 
 ```
-$ curl https://freckles.io | bash -s -- frecklecute ansible-task --ask-become-pass true --task-name mongrelion.docker
+$ curl https://freckles.io | bash -s -- frecklecute ansible-task --become --task-name mongrelion.docker
 ```
 
 Not going to explain what that does, as it should be obvious by now (hint: `mongrelion.docker` is an *Ansible role* that installs ... well)...
