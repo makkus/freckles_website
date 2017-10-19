@@ -224,7 +224,7 @@ $ create-folder --path ~/now-that-is-a-folder-created-in-an-interesting-way
 Or upload it to github and execute it like so:
 
 ```
-frecklecute  gh:makkus/freckles/examples/create-folder --path ~/a-folder-created-from-a-remote-frecklecutable
+$ frecklecute gh:makkus/freckles/examples/create-folder --path ~/a-folder-created-from-a-remote-frecklecutable
 
 * starting tasks (on 'localhost')...
  * starting custom tasks:
