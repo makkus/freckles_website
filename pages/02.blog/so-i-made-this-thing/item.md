@@ -140,7 +140,7 @@ tasks:
 
 ```
 
-If you have used *Ansible* before, this should look familiar to you already. This script first downloads all the external roles it needs, after that it installs the *fail2ban* package (because that's always a good idea for a server), then uses the [thefinn93.letsencrypt ansible role](https://galaxy.ansible.com/thefinn93/letsencrypt/) to retrieve a certificate from the *let's encrypt* CA (which will only work if executed on a machine matching the specified hostname, obviously). Once that it done it'll  create a cron job to always re-new that certificate in time, and install the nginx webserver (using [this role](https://galaxy.ansible.com/geerlingguy/nginx/)) including the site configuration that sets up the forwarding to *readthedocs.io*. 
+If you have used *Ansible* before, this should look familiar to you. This script first downloads all the external roles it needs, after that it installs the *fail2ban* package (because that's always a good idea for a server), then uses the [thefinn93.letsencrypt ansible role](https://galaxy.ansible.com/thefinn93/letsencrypt/) to retrieve a certificate from the *let's encrypt* CA (which will only work if executed on a machine matching the specified hostname, obviously). Once that it done it'll  create a cron job to always re-new that certificate in time, and install the nginx webserver (using [this role](https://galaxy.ansible.com/geerlingguy/nginx/)) including the site configuration that sets up the forwarding to *readthedocs.io*. 
 
 All that can obviously also be done with *Ansible* itself. And it should probably be, in case of a larger infrastructure and, you know, 'production'. But for a single server, and prototyping or development *frecklecute* might be an adequate solution. One thing to mention is that *freckles* does not support all features of *Ansible* directly (like for example the `when` directive). This is partly deliberate to keep those *frecklecutables* simple and readable. And partly due to time constraints on my part. Not having those features is not really a problem though, because I recommend to always write an [Ansible role](https://docs.ansible.com/ansible/2.4/playbooks_reuse_roles.html) once the task to be executed becomes non-trivial. Then include that role in the *frecklecutable* as a task item. Much cleaner that way.
 
@@ -238,7 +238,7 @@ And, if you really want to go all out, you can even combine this with the online
 
 ### Direct Ansible role or module execution
 
-And, for extra credit, and those of use who only want to quickly execute an Ansible role, on a machine without anything useful installed (again, expect for `curl` or `wget`):
+And, for extra credit, and those of use who only want to quickly execute an Ansible role, on a machine without anything useful installed (again, except for `curl` or `wget`):
 
 ```
 $ curl https://freckles.io | bash -s -- frecklecute ansible-task --become --task-name mongrelion.docker
