@@ -179,7 +179,7 @@ In order for all that to work I had to prepare an [Ansible role](https://github.
 
 As is the case with the *readthedocs* example above, that setup can easily be used in a lot of different situations or technologies (Docker, Vagrant, LXC, physical host...).
 
-### Scpripting
+### Scripting
 
 In addition to all this, *freckles* can also be used to quickly write commandline scripts that use `frecklecute` as their sort of 'interpreter'. Again, not going into any detail here, instead, check out [this link](https://docs.freckles.io/en/latest/frecklecute_command.html#frecklecutables-in-your-path), and [this link](https://docs.freckles.io/en/latest/writing_frecklecutables.html)
 
