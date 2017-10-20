@@ -146,7 +146,7 @@ All that can obviously also be done with *Ansible* itself. And it should probabl
 
 A nice thing about all this is that you can use *frecklecute* and this *frecklecutable* in either a Docker container build process, a Vagrant box (well, probably not *that* file since it needs an outside internet connection and a proper hostname), or a VPS on whichever VPS provider you use.
 
-### Data-centric configuration management
+### Data-centric environment management
 
 While working on *freckles* I realized that in a lot of cases the metadata that is required to setup a working environment is already present in the structure or content of the data or code that is supposed to be used in that working environment (or can be very easily added to that environment in the form of a metadata file). 
 
