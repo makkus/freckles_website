@@ -81,7 +81,7 @@ freckelize dotfiles -f gh:makkus/dotfiles
 ```
 (on a sidenote: `gh:makkus/dotfiles` is an abbreviation that *freckles* automatically expands to `https://github.com/makkus/dotfiles.git`)
 
-I'll talk a bit more about `freckezlie` and *dotfiles* [below](#data-centric-configuration...). 
+I'll talk a bit more about `freckelize` and *dotfiles* [below](#data-centric-configuration...). 
 
 Another example would be to setup a machine that runs a webserver to host/redirect readthedocs.io documentation via your own domain and https, as explained [in the readthedocs documentation](http://docs.readthedocs.io/en/latest/alternate_domains.html) (weird example, I know -- but I had to do that recently for obvious reasons):
 
