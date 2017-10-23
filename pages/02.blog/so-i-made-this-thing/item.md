@@ -40,7 +40,7 @@ Because of the overhead that comes with configuration management frameworks, usi
 
 *freckles* tries to change that effort/value equation by making it easier --and faster -- to practice configuration management, at least in local development environments. I do think there's a lot of developers time to be saved, to be used on actual development, rather than all the annoying stuff around it (like, for example, setting up and configuring webservers). Plus, a bit of good practice never hurt anybody, right?
 
-*freckles* comes with (so far) three comamnd-line interfaces (`freckles` itself, `frecklecute` and `freckelize`) which all do slightly different things. They all are designed to primarlily do configuration management on single boxes. Physical or virtual ones, local or remote. Where you have 'root' access, or you don't. Whichever distribution of Linux, or Mac OS X. 
+*freckles* comes with (so far) three command-line interfaces (`freckles` itself, `frecklecute` and `freckelize`) which all do slightly different things. They all are designed to primarlily do configuration management on single boxes. Physical or virtual ones, local or remote. Where you have 'root' access, or you don't. Whichever distribution of Linux, or Mac OS X. 
 
 Basically any type of box you want to get into a certain state. Unlike other configuration management systems, *freckles* doesn't need any infrastructure around it because everything runs on the box that needs the state change. That means, in turn, there is the overhead (mainly time and hard-disk space) of having to get it onto every one of those machines, instead of having a single 'controller' which distributes configuration changes across the network. So, it's not a good fit for medium- or large-sized infrastructures.
 
