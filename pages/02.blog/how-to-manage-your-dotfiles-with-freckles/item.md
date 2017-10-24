@@ -13,7 +13,7 @@ toc:
     headinglevel: 3
 ---
 
-This is part two of a three-part series about managing dotfiles with *freckles*. The [first part](/blog/managing-dotfiles) explaind what dotfiles are and why one might want to manage them, and how to do that by hand. This one here will show you how to do the same thing using [freckles](https://github.com/makkus/freckles), and the last one will show how to use *freckles* with a more involved setup (mine).
+This is part two of a three-part series about managing dotfiles with *freckles*. The [first part](/blog/managing-dotfiles) explaind what dotfiles are and why one might want to manage them, and how to do that by hand. This one here will show you how to do the same thing using [freckles](https://github.com/makkus/freckles), and [the last one](/blog/managing-my-dotfiles-with-freckles) will show how to use *freckles* with a more involved setup (mine).
 
 ===
 
@@ -24,7 +24,7 @@ If you haven't, or just can't be bothered, to read my [introductory post about *
 
 ## *freckelize*
 
-`freckelize`'s main goal is to support a data-centric environment management approach to your working environment. It supports plugins, so-called 'adapters', which help prepare an environment for certain type of data. One such type of data is a dotfiles folder laid out in the way described below (the adapter is aptly named 'dotfiles' of course).
+`freckelize`'s main goal is to support a data-centric environment management approach to your working environment. It supports plugins, so-called 'adapters', which help prepare an environment for certain types of data. One such type of data is a dotfiles folder laid out in the way described below (the adapter is aptly named 'dotfiles' of course).
 
 ### checking out your dotfiles repo, and 'stowing' your config
 
