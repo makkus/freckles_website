@@ -1,5 +1,5 @@
 ---
-title: 'How to manage your dotfiles with freckles'
+title: "How to manage your dotfiles with 'freckles'"
 published: true
 date: '24-10-2017 14:00'
 taxonomy:
@@ -24,7 +24,7 @@ If you haven't, or just can't be bothered, to read my [introductory post about *
 
 ## *freckelize*
 
-`freckelize`'s main goal is to support a data-centric environment management approach to your working environment. It supports plugins, so-called 'adapters', which help prepare an environment for certain types of data. One such type of data is a dotfiles folder laid out in the way described below (the adapter is aptly named 'dotfiles' of course).
+`freckelize`'s main goal is to support a data-centric configuration management approach, in your working environment. It supports plugins, so-called 'adapters', which help prepare an environment for certain types of data. One such type of data is a dotfiles folder laid out in the way described below (the adapter is aptly named 'dotfiles' of course).
 
 ### checking out your dotfiles repo, and 'stowing' your config
 
@@ -148,5 +148,5 @@ drwx------ 2 vagrant vagrant 4.0K Oct 24 09:54 .ssh
 lrwxrwxrwx 1 vagrant vagrant   40 Oct 24 09:58 .zile -> freckles/dotfiles-test-simple/zile/.zile
 ```
 
-As I've mentioned before, `freckelize` can actually do a bit more, and it can be configured much more fine-grained to install packages using other package-managers (git, conda, nix, ...). You can specify different package names for an application. You can also run a set of additional tasks that create folders, import gpg keys, or do whatever else you might need done. I'll write about all this in the [last post of this series](/blog/managing-my-dotfiles-with-freckles), using my own setup as an example.
+As I've mentioned before, `freckelize` can actually do a bit more, and it can be configured much more fine-grained, for example to install packages using other package-managers (git, conda, nix, ...). You can specify different package names for an application. You can also run a set of additional tasks that create folders, import gpg keys, or do whatever else you might need done. I'll write about all this in the [last post of this series](/blog/managing-my-dotfiles-with-freckles), using my own setup as an example.
 
