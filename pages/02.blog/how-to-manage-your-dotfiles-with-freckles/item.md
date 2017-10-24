@@ -93,7 +93,7 @@ dotfiles:
     - tree
 ```
 
-As we are using the `freckelize` *dotfiles* adapter, we'll need to put details about it's execution under the `dotfiles` key, otherwise it wouldn't be picked up. The *dotfiles* adapter understands keys other than `packages`, which I'll say more about below, and in the next blog post in this series.
+As we are using the `freckelize` *dotfiles* adapter, we'll need to put details about it's execution under the `dotfiles` key, otherwise it wouldn't be picked up. The *dotfiles* adapter understands keys other than `packages`, which I'll say more about below, and in the next blog post in this series. Or you can of course check out the [dotfiles adapter documentation](https://docs.freckles.io/en/latest/adapters/dotfiles.html).
 
 I've prepared an example repository that contains configuration for the *fish* shell, as well as the *zile* editor, and which uses the above `.freckle` file, here: [https://github.com/makkus/dotfiles-test-simple](https://github.com/makkus/dotfiles-test-simple). To apply that dotfile repository to your machine would look like:
 
