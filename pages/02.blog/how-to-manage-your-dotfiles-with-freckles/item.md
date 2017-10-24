@@ -69,7 +69,7 @@ How this bootstrap and `freckelize` work in detail is explained in the [freckles
 
 ### installing your applications
 
-You might have noticed the ``--no-install`` flag at the end of the above command. This tells `freckelize` (more exact, `freckelize`s 'dotfiles' adapter) to not execute the 'install' step it would do by default.
+You might have noticed the ``--no-install`` flag at the end of the above command. This tells `freckelize` (more exact, `freckelize`s 'dotfiles' adapter) to not execute the 'install' step, which it would do by default.
 
 Most of the time, if you have have configuration for an app, you want that app to be installed. And most of the time that application's package name is the same as the one you'll have used as sub-folder name in your dotfiles repository (e.g. `i3`, `zile`, ...). So, why not use that folder name as the metadata to make sure the application a set of configuration files is associated with is installed? This is what the the *freckelize* dotfile adapter does by default. So let's run the above command again, without ``--no-install``, and without the ``curl`` part since *freckles* is already installed:
 
