@@ -17,6 +17,7 @@ This is part two of a three-part series about managing dotfiles with *freckles*.
 
 ===
 
+[TOC]
 If you haven't, or just can't be bothered, to read my [introductory post about *freckles*](/blog/so-i-made-this-thing): *freckles* is a configuration management tool to help you setup your working environment with as little fuss and configuration as necessary. 
 
 *freckles* comes with three different command-line applications, all with slightly different goals. `freckles` itself, `frecklecute`, and, for our purpose the most relevant:
