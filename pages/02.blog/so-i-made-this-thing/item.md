@@ -8,6 +8,7 @@ taxonomy:
     tag:
         - freckles
         - ansible
+        - way-to-long
 author: 'Markus Binsteiner'
 toc:
     headinglevel: 3
