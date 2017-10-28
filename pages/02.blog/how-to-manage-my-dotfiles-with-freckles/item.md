@@ -1,6 +1,6 @@
 ---
 title: "How to manage *my* dotfiles with 'freckles'"
-published: true
+published: false
 date: '24-10-2017 15:00'
 taxonomy:
     category:
