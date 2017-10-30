@@ -26,6 +26,7 @@ Maybe I should start off with a few key-points I want to be able to do with my *
 - I want to be able to choose which of my dotfiles are relevant for a certain environment (laptop, VM, container, remote server, etc.)
 - I want my dotfiles to contain additional metadata describing other (relevant) details about the environment they live in (like additional packages to install, ensure certain folders exist, etc.)
 - I want to be able to use alternative package managers, like for example '[nix](https://nixos.org/nix/)' to install some packages
+- I want to be able to do all this on different platforms (at least Debian- and RedHat-based distros as well as Mac OS X, using mostly the same configuration, if possible)
 
 
 ## My dotfiles
