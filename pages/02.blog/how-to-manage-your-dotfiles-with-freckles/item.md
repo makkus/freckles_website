@@ -149,5 +149,5 @@ drwx------ 2 vagrant vagrant 4.0K Oct 24 09:54 .ssh
 lrwxrwxrwx 1 vagrant vagrant   40 Oct 24 09:58 .zile -> freckles/dotfiles-test-simple/zile/.zile
 ```
 
-As I've mentioned before, `freckelize` can actually do a bit more, and it can be configured much more fine-grained, for example to install packages using other package-managers (git, conda, nix, ...). You can specify different package names for an application. You can also run a set of additional tasks that create folders, import gpg keys, or do whatever else you might need done. I'll write about all this in the [last post of this series](/blog/hwo-to-manage-my-dotfiles-with-freckles), using my own setup as an example.
+As I've mentioned before, `freckelize` can actually do a bit more, and it can be configured much more fine-grained, for example to install packages using other package-managers (git, conda, nix, ...). You can specify different package names for an application. You can also run a set of additional tasks that create folders, import gpg keys, or do whatever else you might need done. I'll write about all this in the [last post of this series](/blog/how-to-manage-my-dotfiles-with-freckles), using my own setup as an example.
 

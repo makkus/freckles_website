@@ -14,7 +14,7 @@ toc:
     headinglevel: 3
 ---
 
-Welcome to the last part of this three-part series about managing dotfiles with *freckles*, this is where it becomes interesting. The [first part](/blog/managing-dotfiles) explained what dotfiles are, why one might want to manage them, and how to do that by hand. [The second one](/blog/managing-your-dotfiles-with-freckles) explained how you can do the same thing using [freckles](https://github.com/makkus/freckles), which is a configuration management tool [I built](/blog/so-i-made-this-thing). This last installment will describe how I structured [my own dotfiles](https://github.com/makkus/dotfiles), and how I use *freckles* to get them onto new environments. 
+Welcome to the last part of this three-part series about managing dotfiles with *freckles*, this is where it becomes interesting. The [first part](/blog/managing-dotfiles) explained what dotfiles are, why one might want to manage them, and how to do that by hand. [The second one](/blog/how-to-manage-your-dotfiles-with-freckles) explained how you can do the same thing using [freckles](https://github.com/makkus/freckles), which is a configuration management tool [I built](/blog/so-i-made-this-thing). This last installment will describe how I structured [my own dotfiles](https://github.com/makkus/dotfiles), and how I use *freckles* to get them onto new environments. 
 
 ===
 
