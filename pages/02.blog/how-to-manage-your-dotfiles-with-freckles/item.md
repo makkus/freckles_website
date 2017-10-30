@@ -13,19 +13,19 @@ toc:
     headinglevel: 3
 ---
 
-This is part two of a three-part series about managing dotfiles with *freckles*. The [first part](/blog/managing-dotfiles) explaind what dotfiles are and why one might want to manage them, and how to do that by hand. This one here will show you how to do the same thing using [freckles](https://github.com/makkus/freckles), and [the last one](/blog/managing-my-dotfiles-with-freckles) will show how to use *freckles* with a more involved setup (mine).
+This is part two of a three-part series about managing dotfiles with *freckles*. The [first part](/blog/managing-dotfiles) explained what dotfiles are, why one might want to manage them, and how to do that by hand. This one here will show you how to do the same thing using [freckles](https://github.com/makkus/freckles), and [the last one](/blog/how-to-manage-my-dotfiles-with-freckles) will show how to use *freckles* with a more involved setup (mine).
 
 ===
 
 [TOC]
-If you haven't, or just can't be bothered, to read my [introductory post about *freckles*](/blog/so-i-made-this-thing): *freckles* is a configuration management tool to help you setup your working environment with as little fuss and configuration as necessary. 
+If you haven't -- or just can't be bothered to -- read my [introductory post about *freckles*](/blog/so-i-made-this-thing): *freckles* is a configuration management tool to help you setup your working environment with as little fuss and configuration as necessary. 
 
 *freckles* comes with three different command-line applications, all with slightly different goals. `freckles` itself, `frecklecute`, and, for our purpose the most relevant:
 
 
 ## *freckelize*
 
-`freckelize`'s main goal is to support a data-centric configuration management approach, in your working environment. It supports plugins, so-called 'adapters', which help prepare an environment for certain types of data. One such type of data is a dotfiles folder laid out in the way described below (the adapter is aptly named 'dotfiles' of course).
+`freckelize`'s main goal is to support a data-centric configuration management approach, in your working environment. It supports plugins, so-called 'adapters', which help prepare an environment for certain types of data. One such type of data is a dotfiles folder laid out in the way described below (the relevant adapter is named 'dotfiles', unsurprisingly).
 
 ### checking out your dotfiles repo, and 'stowing' your config
 
@@ -70,7 +70,7 @@ How this bootstrap and `freckelize` work in detail is explained in the [freckles
 
 ### installing your applications
 
-You might have noticed the ``--no-install`` flag at the end of the above command. This tells `freckelize` (more exact, `freckelize`s 'dotfiles' adapter) to not execute the 'install' step, which it would do by default.
+You might have noticed the ``--no-install`` flag at the end of the above command. This tells `freckelize` (more exactly, `freckelize`s 'dotfiles' adapter) to not execute the 'install' step, which it would do by default.
 
 Most of the time, if you have have configuration for an app, you want that app to be installed. And most of the time that application's package name is the same as the one you'll have used as sub-folder name in your dotfiles repository (e.g. `i3`, `zile`, ...). So, why not use that folder name as the metadata to make sure the application a set of configuration files is associated with is installed? This is what the the *freckelize* dotfile adapter does by default. So let's run the above command again, without ``--no-install``, and without the ``curl`` part since *freckles* is already installed:
 
@@ -149,5 +149,5 @@ drwx------ 2 vagrant vagrant 4.0K Oct 24 09:54 .ssh
 lrwxrwxrwx 1 vagrant vagrant   40 Oct 24 09:58 .zile -> freckles/dotfiles-test-simple/zile/.zile
 ```
 
-As I've mentioned before, `freckelize` can actually do a bit more, and it can be configured much more fine-grained, for example to install packages using other package-managers (git, conda, nix, ...). You can specify different package names for an application. You can also run a set of additional tasks that create folders, import gpg keys, or do whatever else you might need done. I'll write about all this in the [last post of this series](/blog/managing-my-dotfiles-with-freckles), using my own setup as an example.
+As I've mentioned before, `freckelize` can actually do a bit more, and it can be configured much more fine-grained, for example to install packages using other package-managers (git, conda, nix, ...). You can specify different package names for an application. You can also run a set of additional tasks that create folders, import gpg keys, or do whatever else you might need done. I'll write about all this in the [last post of this series](/blog/hwo-to-manage-my-dotfiles-with-freckles), using my own setup as an example.
 

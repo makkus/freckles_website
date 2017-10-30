@@ -37,7 +37,7 @@ In addition to those alternative helper tools, there are usually two strategies 
 - [a bare git repository](https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/)
 - [using gnu stow](https://alexpearce.me/2016/02/managing-dotfiles-with-stow/)
  
-In my opinion, both approaches have their advantages, so, again, I'd recommend reading up on both of them. For my workflow, as much as I like the idea, the 'bare git repo' approach is too inflexible to be of enough value, which is why I choose to use 'stow'. Which is also the method *freckles* uses. I'll cover the details of those more advanced use-cases in the third installment of this series, but if you have a fairly straight-forward setup using a bare git repository might very well be the better solution.
+In my opinion, both approaches have their advantages, so, again, I'd recommend reading up on both of them. For my workflow, as much as I like the idea, the 'bare git repo' approach is too inflexible to be of enough value, which is why I choose to use 'stow'. Which is also the method *freckles* uses. I'll cover the details of those more advanced use-cases in the third installment of this series, but if you have a fairly straight-forward setup, using a bare git repository might very well be the better solution.
  
 ## dotfiles folder structure
 

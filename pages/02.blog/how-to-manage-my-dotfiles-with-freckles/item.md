@@ -1,6 +1,6 @@
 ---
 title: "How to manage *my* dotfiles with 'freckles'"
-published: false
+published: true
 date: '24-10-2017 15:00'
 taxonomy:
     category:
@@ -14,12 +14,12 @@ toc:
     headinglevel: 3
 ---
 
-Welcome to the last part of this three-part series about managing dotfiles with *freckles*, this is where it becomes interesting. The [first part](/blog/managing-dotfiles) explained what dotfiles are and why one might want to manage them, and how to do that by hand. [The second one](/blog/managing-your-dotfiles-with-freckles) explained how you can do the same thing using [freckles](https://github.com/makkus/freckles). This one will describe how I structured [my own dotfiles](https://github.com/makkus/dotfiles), and how I use *freckles* to get them onto new environments. 
+Welcome to the last part of this three-part series about managing dotfiles with *freckles*, this is where it becomes interesting. The [first part](/blog/managing-dotfiles) explained what dotfiles are, why one might want to manage them, and how to do that by hand. [The second one](/blog/managing-your-dotfiles-with-freckles) explained how you can do the same thing using [freckles](https://github.com/makkus/freckles), which is a configuration management tool [I built](/blog/so-i-made-this-thing). This last installment will describe how I structured [my own dotfiles](https://github.com/makkus/dotfiles), and how I use *freckles* to get them onto new environments. 
 
 ===
 
 [TOC]
-Maybe I should start off with what I like to do with my dotfiles:
+Maybe I should start off with a few key-points I want to be able to do with my *dotfiles*-setup:
 
 - I want to be able to easily setup a new machine that doesn't have anything installed yet, with all my dotfiles and the applications I commonly use
 - I want to be able to draw my dotfiles from multiple sources, not just one git repository
@@ -36,11 +36,11 @@ There's a few things I do differently than what I've seen from most other people
 
 ### Usage 'profiles'
 
-I separate my dotfiles using sorta 'usage profiles':
+I sort my dotfiles into different folders by 'usage profile':
 
-- **terminal**: for terminal/console applications
-- **x**: for X/gui applications
-- **sec**: misc applications where config files contain sorta semi-private information
+- [**terminal**](https://github.com/makkus/dotfiles/tree/master/terminal): for terminal/console applications
+- [**x**](https://github.com/makkus/dotfiles/tree/master/x): for X/gui applications
+- [**sec**](https://github.com/makkus/dotfiles/tree/master/sec): misc applications where config files contain sorta semi-private information
 
 Within the '**terminal**' and '**x**' profiles, I have 'sub-profiles':
 
@@ -50,6 +50,10 @@ Within the '**terminal**' and '**x**' profiles, I have 'sub-profiles':
 - **i3-desktop**: (only in '**x**') my desktop environment setup, which I use on my 2 laptops, and sometimes in a VM
 
 I like to be able to mix-and-match those. E.g. if I setup a new laptop or workstation, I'll want all of those. If I login to a remote server I expect to work more than a minimal amount of time on, I want to use the '**terminal**' profile, but only the '**minimal**' and '**extra**' (and, depending, maybe the '**dev**') sub-profiles. If I prepare a Docker container, I only want the '**minimal**' sub-profile of '**terminal**' (which I'll delete once the container is finished to save space). On a new (graphical) VM I might only want the '**minimal**' sub-profile of both '**terminal**' and '**x**'.
+
+### Applications
+
+I don't want to have to install the applications my configurations refer to manually. If there is a configuration file for *git*, I want *git* to be available on that machine. 
 
 ### Additional applications
 
@@ -69,7 +73,7 @@ For most of the user-facing applications I use, I prefer to use versions install
 
 #### conda
 
-When working on Python projects, I prefer to use [conda](https://conda.io). Again, the reasons for this choice are not really the topic of this blog post, so I'll just say that I like how it's possible to use most 'system' packages that are (still) required as dependencies for certain Python packages (e.g. *cryptography*, *pycrypt*), without having to install them on your system, but just put them in your *conda* environment.
+When working on Python projects, I prefer to use [conda](https://conda.io). Again, the reasons for this choice are not really the topic of this blog post, so I'll just say that I like how it's possible to use most 'system' packages that are (still) required as dependencies for certain Python packages (e.g. *cryptography*, *pycrypt*), without having to use the system package manager to install them. Everything is neatly contained in a *confa* environment.
 
 #### git
 
@@ -83,6 +87,10 @@ I also use a few (mostly command-line) applications directly from [pypi](https:/
 
 Some applications I use (like for example [the AirVPN client '*eddie*'](https://airvpn.org/enter/), or [Vagrant](https://www.vagrantup.com/downloads.html)) only offer `deb` or `rpm` packages, but no repository or similar to install the package from. I don't really like having to download and install those packages manually every time that becomes necessary.
 
+#### Additional repositories
+
+A lot of applications nowadays come with their own package repository (e.g. PPA in Ubuntu) which contains the application and it's dependencies as sytem-packages. In some cases this is the only way to get a package on a machine, without having to compile from source.
+
 #### others
 
 There are more sources I get packages from. For example, I use some *Vagrant* plugins, so *Vagrant* itself can be considered a plugin manager. 
@@ -91,7 +99,7 @@ Also, even though I don't use it myself, but people get packages via [npm](https
 
 ### 'application-less' config files
 
-With 'application-less' I mean config (or similar) files that need to be 'stowed', but don't need any packages installed. One example would be [additional fonts I use in my desktop environment](https://github.com/makkus/bits-and-pieces/tree/master/fonts), which need to sit in the `$HOME/.fonts` folder. I have those in an extra git repository because I don't want to have to checkout the added 'bulk' of too many fonts everywhere I go and where they are not needed (e.g. terminal environments).
+With 'application-less' I mean config (or similar) files that need to be 'stowed' (put into place), but don't need any packages installed. One example would be [additional fonts I use in my desktop environment](https://github.com/makkus/bits-and-pieces/tree/master/fonts), which need to sit in the `$HOME/.fonts` folder. I have those in an extra git repository because I don't want to have to checkout the added 'bulk' of too many fonts everywhere I go and where they are not needed (e.g. terminal environments).
 
 ### Encrypted config files
 
@@ -118,7 +126,7 @@ If I only wanted to do all this every few months, to setup a new, or re-setup an
 
 ### Bootstrapping (with `inaugurate`)
 
-One of the main drivers behind writing *freckles* was me getting annoyed always having to setup requirements and dependencies before being able to run my bootstrap script which then would checkout my dotfiles and install applications. I really wanted to do all this with only one command, and I wanted that command to work on all the machines and platforms I work on. Basically, what I needed was a bootstrap script for my bootstrap script. This is what [`inaugurate`](https://github.com/makkus/inaugurate) is. I've written about this and how it works in probably every blog post and readme about *freckles* I've written so far, but just for good measure, in case you haven't read any of those (yet):
+One of the main drivers behind writing *freckles* was me getting annoyed always having to setup requirements and dependencies before being able to run my bootstrap script which then would checkout my dotfiles, and install applications. I really wanted to do all this with only one command, and I wanted that command to work on all the machines and platforms I work on. Basically, what I needed was a bootstrap script for my bootstrap script. This is what [`inaugurate`](https://github.com/makkus/inaugurate) is. I've written about this and how it works in probably every blog post and readme about *freckles* I've written so far, but just for good measure, in case you haven't read any of those (yet):
 
 > *inaugurate* can install an application and it's requirements as well as execute it in one go. The only requirement for the machine it is run on is either ``wget`` or ``curl``. It can be executed with or without *sudo* permissions, and depending which one it is it uses different ways to install the application (either using system packages, or *conda*). This is done by directly executing the bash script ``wget`` or ``curl`` downloads. If that concerns you, read [this](https://docs.freckles.io/en/latest/trust.html), [this](https://github.com/makkus/inaugurate#is-this-secure), and [this](https://docs.freckles.io/en/latest/bootstrap.html).
 >
@@ -133,15 +141,15 @@ After this, and after you either logged out and logged in again, or you sourced 
 curl https://freckles.io | bash -s -- freckelize dotfiles -f gh:makkus/dotfiles
 ```
 
-Check out the [previous post in this series](/blog/managing-your-dotfiles-with-freckles) to understand what that does.
+Check out the [previous post in this series](/blog/how-to-manage-your-dotfiles-with-freckles) to understand what that does.
 
-### Data-driven environment management using `freckelize`
+### Data-centric environment management using `freckelize`
 
 This is a topic that deserves it's own blog post. Until that is written: I think it makes sense, if at all possible, to keep metadata describing environment requirements with the data that is supposed to live in that environment. For the case of dotfiles, this means I think dotfile repositories should ideally contain, apart from the dotfiles itself, metadata about the applications that are required by the dotfiles, as well as other requirements (e.g. folders that need to exists, package managers that are used to install the required applications, details about how the config files itself should be setup, etc.).
 
 The *freckles* project provides three command line interfaces. The one that is interesting in this case is called `freckelize`, and it's written specifically to support and encourage data-driven environment management.
 
-In the following I'll list how to use `freckelize`` to manage dotfiles and support the requirements I listed above.
+In the following I'll describe how to use `freckelize`` to manage dotfiles and support the requirements I listed above.
 
 #### Usage 'profiles'
 
@@ -157,17 +165,17 @@ By default, if no extra metadata is added to a folder, `freckelize` considers th
 freckelize dotfiles -f gh:makkus/dotfiles-test-simple-2
 ```
 
-`freckelize` checks out the repository to `$HOME/freckles/dotfiles-test-simple-2`, and as this folder or any of it's sub-folders contains a `freckelize` metadata file (which is called `.freckle`) it will use the root of that local folder itself as the *freckle*. 
+`freckelize` checks out the repository to `$HOME/freckles/dotfiles-test-simple-2`, and as neither this folder nor any of it's sub-folders contains a `freckelize` metadata file (which would be named `.freckle`) it will use the root of that local folder itself as the *freckle*. 
 
 ##### Interlude 2:  one (or several) '*freckle*' folders, with metadata
 
-If `freckelize` finds one or several files called `.freckle` within the checked out git repository, it assumes those are the one(s) it is supposed to operate on, and it'll not use the root of the git repository except if that also contains a `.freckle` file. This is done so that in the majority of cases `freckelize` does the right thing by default: if no `.freckle` file exists, the user doesn't even have to be aware of an conventions. If the user wants to do something out of the ordinary, they have to learn about the more advanced features of `freckelize` anyway.
+If `freckelize` finds one or several files called `.freckle` within the checked out git repository, it assumes those are the one(s) it is supposed to operate on, and it'll not use the root of the git repository except if that also contains a `.freckle` file. This is done so that in the majority of cases `freckelize` does the right thing by default: if no `.freckle` file exists, the user doesn't even have to be aware of any conventions. If the user wants to do something out of the ordinary, they have to learn about the more advanced features of `freckelize` anyway.
 
 So, if a folder contains one or more files named `.freckle`, `freckelize` will operate on all of those, using the parent folder of the `.freckle` file as the *freckle* folder. Those `.freckle` files can be empty, or contain additional metadata which `freckelize` will forward to the appropriate adapter.
 
-##### my dotfiles 'freckle' folders
+##### My dotfiles 'freckle' folders
 
-As I want to be able to use my dotfiles in several different scenarios, I have split up my dotfiles into 8 parts (as I've described above) by placing `.freckle` files in the roots of the 'profile' folders:
+As I want to be able to use my dotfiles in several different usage scenarios, I have split up my dotfiles into 8 parts (as I've described above) by placing `.freckle` files in the roots of the 'profile' folders:
 
 ```
 $ cd ~/dotfiles
@@ -206,7 +214,13 @@ dotfiles/terminal/extra
 
 And so on, you get the idea. This lets me mix and match among all my usage profiles, and gives me fine-grained control which applications and configurations I want on a certain machine.
 
-#### Alternative package managers
+One thing I should probably mention here is related to the usage of `stow`: `stow` often complains when you link into the same directory from different source 'base' paths. You can get it to work well in such cases by adding an (empty) file called `.stow` in the base of a 'source' folder. Read more about this [here](https://www.gnu.org/software/stow/manual/stow.html#Multiple-Stow-Directories).
+
+#### Applications
+
+How to install applications that are related to the dotfiles we use is the topic of the previous blog post in this series, so just [head over there](/blog/how-to-manage-your-dotfiles-with-freckles#freckelize) for details.
+
+#### Additional applications and alternative package managers
 
 This is a huge can of worms, and although it sort of works now within *freckles* for my needs, there is still quite a bit of work to be done to make the implementation cleaner, and to support more than the few package managers I implemented support for so far. If you want to help out and contribute support for a package manager (nodejs anyone?), let me know and I'll explain the (few) things that need to be put in place.
 
@@ -247,7 +261,7 @@ As we've learned, `frecklecute` takes notice of files named `.freckle`. It uses 
 
 This instructs `frecklecute` to use the default package manager on a system ('auto') to install the first set of packages (the one starting with 'direnv'), and *nix* to install the other set. How to write those configuration files is a topic for another blog post, but it should be easy enough to see how it works in this case. When kicked off, `frecklecute` will parse all the *freckle* folder it encounters, then it'll make a list of all packages to install and which package managers to use. If it comes across a package manager that isn't installed on the machine yet, it'll install it before attempting to install anything.
 
-Another example is the `.freckle` file in my **terminal/minimal** profile:
+Another example is the `.freckle` file in my [**terminal/minimal**](https://github.com/makkus/dotfiles/tree/master/terminal/minimal) profile:
 
 ```
 - dotfiles:
@@ -270,7 +284,7 @@ pkg_mgr: nix
 
 #### 'application-less' config files
 
-In order to be able to have the configuration files that don't relate directly to an applications (e.g. `.fonts`) in the same repository as all your others, but not use them as package names when looking for applications, you can tell `frecklecute` to omit a folder. To do that, all you need to do is create an (empty) marker file called `.no_install.freckle` in the folder you don't want to be used as application name. Like I did for my `dotfiles/x/minimal/xkb` folder which contains keyboard layouts:
+In order to be able to have the configuration files that don't relate directly to an applications (e.g. `.fonts`) in the same repository as all your others, but not use them as package names when looking for applications, you can tell `frecklecute` to omit a folder. To do that, all you need to do is create an (empty) marker file called `.no_stow.freckle` in the folder you don't want to be used as application name. Like I did for my `dotfiles/x/minimal/xkb` folder which contains keyboard layouts:
 
 ```
  $ tree -a xkb
@@ -285,14 +299,14 @@ xkb
     └── storm
 ```
 
-On a side-note: notice the `.no_install.freckle` marker file. This does a similar thing than the `.no_stow.freckle` one, it prevents `frecklecute` from 'stowing' that particular folder.
+On a side-note: notice the `.no_install.freckle` marker file. This does a similar thing than the `.no_stow.freckle` one, it prevents `frecklecute` from installing the (folder-name-based) application for that particular folder.
 
 
 #### Encrypted config files
 
 There's not all that much to tell about this, except that I put most of my semi-private files in the `sec` usage profile and added their names to the [.gitattributes](https://github.com/makkus/dotfiles/blob/master/.gitattributes) file of the repository.
 
-Having this is a bit of a nightmare, because I can't use any of the files (particularly the `gpg.conf` one) before 'unlocking' the repository. Which is kinda hard to do automatically as it needs a key passphrase, or my Yubikey pressed. Since I haven't really figured out how to best handle this, I still do this part manually. And I don't 'stow' the `dotfiles/sec/gnupg folder automatically. I do, however, automatically import my gpg key and give it 'ultimate' trust. For how that is done, read the next section:
+Using this setup is a bit of a nightmare, because I can't use any of the files (particularly the `gpg.conf` one) before 'unlocking' the repository. Which is kinda hard to do automatically as it needs a key passphrase, or my Yubikey pressed. Since I haven't really figured out how to best handle this, I still do this part manually. And I don't 'stow' the `dotfiles/sec/gnupg folder automatically. I do, however, automatically import my gpg key and give it 'ultimate' trust. For how that is done, read the next section:
 
 #### Additional provisioning tasks
 
@@ -300,7 +314,7 @@ Because there are a lot of things that could potentially be required to setup a 
 
 The 'ansible-tasks' adapter to the rescue! This adapter is written for those cases that need generic task execution. This is a quite powerful feature, but also a dangerous one, as this can execute arbitrary commands. Be careful when you use this, and don't use the 'ansible-tasks' adapter without checking first what it does in every case.
 
-The way this adapter works is that it looks for a file called `.tasks.freckle` in the root of the *freckle* folder. If it finds it, and if it can parse it as yaml, it'll execute all the tasks that it contains. The tasks itself are described using the ['tasks'-part of the Ansible playbook format](http://docs.ansible.com/ansible/latest/playbooks_intro.html#playbook-language-example). It supports all the avaialable official [Ansible modules](http://docs.ansible.com/ansible/latest/list_of_all_modules.html) as building blocks. A simple example is a list of a (single) task to ensure a few directories are present:
+The way this adapter works is that it looks for a file called `.tasks.freckle` in the root of the *freckle* folder. If it finds it, and if it can parse it as yaml, it'll execute all the tasks that it contains. The tasks itself are described using the ['tasks'-part of the Ansible playbook format](http://docs.ansible.com/ansible/latest/playbooks_intro.html#playbook-language-example). It supports all the available official [Ansible modules](http://docs.ansible.com/ansible/latest/list_of_all_modules.html) as building blocks. A simple example is a list of a (single) task to ensure a few directories are present:
 
 ```
 - name: 'creating folders in home dir'
@@ -335,7 +349,21 @@ Or, a bit more involved, here's how I import my gpg when initializing a new mach
 
 This task list can re-use a few existing variables, `freckle_path` being among them, and probably the most important one.
 
-Technical sidenote: In contrast to `freckelize` adapters which can execute both *Ansible modules* and *Ansible roles*, this task list can only contain *Ansible module*-tasks.
+Technical sidenote: In contrast to `freckelize` adapters which can execute both *Ansible modules* and *Ansible roles*, this task list can only contain *Ansible module*-tasks (for now, anyway).
 
-## Conclusion
+## tldr;
+
+So, to sum it all up:
+
+If you want to use `freckelize` to manage your dotfiles, including installation of applications and execution of additional provisioning tasks, you have to:
+
+- prepare one or more *dotfile* repositories
+- split up your dotfiles into 'usage profiles' if you want to
+- prepare (an optional)  `.freckle` metadata file that contains additional applications which don't need/have configurations
+- prepare (an optional) `.tasks.freckle` for every dotfile repository or usage profile that contains additional tasks to be executed
+- log into the environment you want to add your dotfiles to
+- execute ``curl https://freckles.io | bash -s -- freckelize -f <dotfile_repo_url> dotfiles ansible-tasks``
+- get a coffee, as this might take a while, depending on how many applications there are to install
+
+And that's it for *dotfiles* and *freckles*.
 
