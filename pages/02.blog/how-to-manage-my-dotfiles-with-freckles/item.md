@@ -8,7 +8,7 @@ taxonomy:
     tag:
         - freckles
         - dotfiles
-        - way-to-long
+        - way-too-long
 author: 'Markus Binsteiner'
 toc:
     headinglevel: 3
