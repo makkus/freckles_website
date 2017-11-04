@@ -1,5 +1,5 @@
 ---
-title: "Declarative scripting, using Ansible modules and roles"
+title: "Writing declarative command-line scripts, using Ansible modules and roles"
 published: true
 date: '04-11-2017 13:00'
 taxonomy:
