@@ -266,7 +266,7 @@ Being able to do all this, combined with the multitude of available roles on *An
 
 ### Conventions
 
-One of the main goals for `frecklecute` was to have an easy-to-understand scripting language, using *Ansible modules* and *roles* as building blocks. To achieve that, there are some conventions that need to be understood, at least once your scripts get more complex and use the more advanced features. 
+One of the main goals for `frecklecute` was to have an easy-to-read scripting language, using *Ansible modules* and *roles* as building blocks. To achieve that, there are some conventions that need to be understood, at least once your scripts get more complex and use the more advanced features. 
 
 Those conventions obviously need to be documented. Unfortunately this is still work-in-progress, and not finished yet. The most important of those relates to executing tasks with 'root' or 'sudo' permissions, which is something I've skipped over so far because we just used the 'root' user to execute the examples.
 
