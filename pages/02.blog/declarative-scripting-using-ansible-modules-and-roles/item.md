@@ -11,7 +11,7 @@ taxonomy:
         - ansible
 author: 'Markus Binsteiner'
 toc:
-    headinglevel: 3
+    headinglevel: 2
 ---
 
 Ever wanted to just quickly run a few Ansible tasks or apply a role from *Ansible Galaxy*, without having to manually setup *Ansible*, or create an inventory, and/or download role(s) from *Ansible Galaxy*, etc...? Or have you ever wished you could write a re-usable command-line script using *Ansible modules* and *roles*? Or, maybe you haven't thought about it before, but now that I mention it...
@@ -25,7 +25,9 @@ We're going to be using the `frecklecute` command-line interface for this, which
 
 ## tldr; show me the goods
 
-Here's one such example script (a 'frecklecutable') which sets up a user account (if it doesn't exist yet) and makes sure the user is part of the `wheel` group (which will also be created if necessary). The script also sets up 'passwordless' *sudo* permissions for that `wheel` group. Let's create the file `setup_sudo_user` with the following content:
+Here's one such example script (a 'frecklecutable') which sets up a user account (if it doesn't exist yet) and makes sure the user is part of the `wheel` group (which will also be created if necessary). The script also sets up 'passwordless' *sudo* permissions for that `wheel` group. 
+
+Right. This is the script (let's name it `setup_sudo_user`):
 
 ```yaml
 doc:
@@ -34,11 +36,11 @@ doc:
   
 args:
   user_name:
-     help: the name of the user
+     help: "the name of the user"
      is_var: false
      required: yes
   password:
-     help: the user password hash (generate with 'mkpasswd -m sha-512')
+     help: "the user password hash (generate with 'mkpasswd -m sha-512')"
      is_var: false
      required: yes
      
@@ -100,7 +102,17 @@ $6$h5OgOaSfa$rwIgBF1Ds/YKx9200agirpmdjG/8D5ThsM3AG9ozvlwci3DzZrBcqRA6LbOQMRAStQo
 
 That was easy, right?
 
-## Uuuuuhhhhhh, nice! Tell me more!
+## Why should I use that? When should I use that
+
+This is nothing that couldn't be done with a bash script, or just plain *Ansible*. If you already have setup *Ansible*, it probably makes sense to just use that. If not, then this is an easy way to create scripts to manage local machines, still taking advantage of the power of *Ansible*, and the hundreds or thousands of existing *modules* and *roles*.
+
+Compared to a bash script, I think this is quite well suited in cases where you want to manage state on a machine. Not so much (rather, not at all) when you have 'actual' work to do, like for example parsing a huge chunk of text files.
+
+A declarative script like the example above is much easier to read (I think, anyway), and in most cases the script you are writing will be [idempotent](https://en.wikipedia.org/wiki/Idempotence), which you might or might not appreciate. It is certainly handy not having to check states or files or installed applications and handle those cases differently depending on the result of the check, because this is already done in every one of your building blocks. I'm not saying it's not possible to write idempotent bash scripts, but I'd argue it's quite a bit more work than just re-using all those readymade *Ansible modules* and *roles*.
+
+Plus, you know. All those readymade *Ansible modules* and *roles*. There is one for almost everything you can imagine...
+
+## I see, I see. How does that work then?
 
 Let's go through this script, and see how that works. A *frecklecutable* supports 5 key-names in the root of the document: `doc`, `defaults`, `args`, `vars` and `tasks`. Only the last one, `tasks` is required for a valid *frecklecutable*. To learn more about the keys not covered here, visit the [*frecklecutable* doc pages](https://docs.freckles.io/en/latest/writing_frecklecutables.html).
 
