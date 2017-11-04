@@ -104,7 +104,7 @@ That was easy, right?
 
 ## Why should I use that? When should I use that
 
-This is nothing that couldn't be done with a bash script, or just plain *Ansible*. If you already have setup *Ansible*, it probably makes sense to just use that. If not, then this is an easy way to create scripts to manage local machines, still taking advantage of the power of *Ansible*, and the hundreds or thousands of existing *modules* and *roles*.
+This is not something that couldn't be done with a bash script, or just plain *Ansible*. If you already have setup *Ansible*, it probably makes sense to just use that. If not, then this is an easy way to create scripts to manage local machines, still taking advantage of the power of *Ansible*, and the hundreds or thousands of existing *modules* and *roles*.
 
 Compared to a bash script, I think this is quite well suited in cases where you want to manage state on a machine. Not so much (rather, not at all) when you have 'actual' work to do, like for example parsing a huge chunk of text files.
 
@@ -114,7 +114,7 @@ Plus, you know. All those readymade *Ansible modules* and *roles*. There is one 
 
 ## I see, I see. How does that work then?
 
-Let's go through this script, and see how that works. A *frecklecutable* supports 5 key-names in the root of the document: `doc`, `defaults`, `args`, `vars` and `tasks`. Only the last one, `tasks` is required for a valid *frecklecutable*. To learn more about the keys not covered here, visit the [*frecklecutable* doc pages](https://docs.freckles.io/en/latest/writing_frecklecutables.html).
+Let's go through this script, and see how that works. A *frecklecutable* supports 5 key-names in the root of the document: `doc`, `defaults`, `args`, `vars` and `tasks`. Only the last one, `tasks` is required for a valid *frecklecutable*. To learn more about the keys not covered here, visit the [*frecklecutable* documentation](https://docs.freckles.io/en/latest/writing_frecklecutables.html).
 
 ### `doc`
 
@@ -122,7 +122,7 @@ The values under the `doc` key help make a nice commandline application out of t
 
 ### `args`
 
-This `key` gathers all user specify-able command=line arguments to the *frecklecutable*. Under the hood this uses the [Click python package](http://click.pocoo.org/6/), so you can use most of the 'click'-supported options for such an option or argument. More details can be found in the *freckles* documentation, but here's a quick example of the kind of customization that's possible:
+This `key` gathers all user specify-able command-line arguments of the *frecklecutable*. Under the hood this uses the [Click python package](http://click.pocoo.org/6/), so you can use most of the 'click'-supported options for such an option or argument. More details can be found in the *freckles* documentation, but here's a quick example of the kind of customization that's possible:
 
 ```yaml
 become_root:
@@ -134,19 +134,19 @@ become_root:
   is_var: false
 ```
 
-This creates a variable with the name 'become_root', which is of type `boolean` (because it's specified as a flag), which is not required and defaults to 'false' if not specified by the user. It also contains a short help text to tell the user what it means to set it.
+This creates a variable with the name 'become_root', which is of type `boolean` (because it's specified as a flag), which is not required and defaults to 'false' if not specified by the user (by providing the `--become` option). It also contains a short help text to tell the user what it means to set it.
 
-The only 'non-Click' key in this example is the `is_var` one. This tells *frecklecute* to not add the resulting value to every task in the `tasks` list, but use it for templating purposes. More details on this can be found [here](https://docs.freckles.io/en/latest/frecklecutables_templating.html). In our example, both `user_name` and `password` are used for as templating variables.
+The only 'non-Click' key in this example is the `is_var` one. This tells *frecklecute* to not add the resulting value to every task in the `tasks` list, but use it for templating purposes. More details on this can be found [here](https://docs.freckles.io/en/latest/frecklecutables_templating.html). In our example, both `user_name` and `password` are used as templating variables.
 
 ### `tasks`
 
-This is the main section of a *frecklecutable*, and where things get done. This key contains a list of tasks to execute. Those tasks can be either *Ansible* [modules](docs.ansible.com/modules.html), or [roles](https://docs.ansible.com/ansible/2.4/playbooks_reuse_roles.html). In contrast to *Ansible playbooks*, *modules* and *roles* are treated in the same way within a *frecklecutable*. 
+This is the main section of a *frecklecutable*, and where things get done. This key contains a list of tasks to execute. Those tasks can be either *Ansible* [modules](docs.ansible.com/modules.html), or [roles](https://docs.ansible.com/ansible/2.4/playbooks_reuse_roles.html). In contrast to *Ansible playbooks*, *modules* and *roles* are treated the same within a *frecklecutable*. 
 
-There are two ways to define a task item in the task list, a verbose, 'exploded' way which has yet to be documented and written about, and a concise, short way which I'll describe here. The 'exploded' way is basically a dictionary with explicit metadata, and it's used when using one of the more uncommon features or special cases. Both can be used interchangeably, as internally a short description is converted into the more explicit, verbose way.
+There are two ways to define a task item in the task list, a verbose, 'exploded' way which has yet to be documented and written about, and a concise, short way which I'll describe here. The 'exploded' way is basically a dictionary with explicit metadata, and it can be necessary when using one of the more uncommon features or special cases. Both can be used interchangeably, as internally a short description is converted into the more explicit, verbose way.
 
 Anyway, to add a task to the list, the most important thing is it's name. A name can either be an alias you define (which we'll ignore for the purpose of this blog post, but can be read about [here](https://docs.freckles.io/en/latest/writing_frecklecutables.html#task-alias)), the name of [a module](http://docs.ansible.com/ansible/latest/list_of_all_modules.html), or the name of a [role from Ansible Galaxy](https://galaxy.ansible.com/). `frecklecute` will know which is which, because *roles* always contain a ' . ' in their name, whereas modules never do.
 
-Let's have a look the the example from above:
+Let's have a look at the example from above:
 
 ```yaml
 tasks:
@@ -193,7 +193,7 @@ security_sudoers_passwordless:
   - johndoe
 ```
 
-This role supports other basic security tasks, like for example controlling ssh server behaviour, like allowing or disallowing password authentication. Do disable that, as well as prevent root ssh logins, you could add:
+This role supports other basic security tasks, like for example controlling ssh server behaviour, like allowing or disallowing password authentication. Do do that, as well as prevent root ssh logins, you could add:
 
 ```yaml
 security_ssh_password_authentication: "no"
@@ -262,17 +262,17 @@ Downloading external roles...
    => ok (changed)
 ```
 
-Being able to do all this, combined with the multitude of available roles on "Ansible Galaxy" can be quite powerful, and potentially save quite a bit of time in the day of a typical developer or systems/devops person. 
+Being able to do all this, combined with the multitude of available roles on *Ansible Galaxy* can be quite powerful, and potentially save quite a bit of time in the day of a typical developer or systems/devops person. 
 
 ### Conventions
 
 One of the main goals for `frecklecute` was to have an easy-to-understand scripting language, using *Ansible modules* and *roles* as building blocks. To achieve that, there are some conventions that need to be understood, at least once your scripts get more complex and use the more advanced features. 
 
-Those conventions obviously need to be documented. Unfortunately this is still work-in-progress, and not finished yet. The most important of those relates to execute tasks with 'root' or 'sudo' permissions, which is something I've ignored so far, because we used the 'root' user to execute the examples.
+Those conventions obviously need to be documented. Unfortunately this is still work-in-progress, and not finished yet. The most important of those relates to executing tasks with 'root' or 'sudo' permissions, which is something I've skipped over so far because we just used the 'root' user to execute the examples.
 
-In 'real life' we wouldn't do that, but use a 'normal' user account, which has 'sudo' permissions already. Without those we wouldn't be able to install packages using the system manager, or add new users and groups.
+In 'real life' we wouldn't do that, but use a 'normal' user account which has 'sudo' permissions already. Without those we wouldn't be able to install packages using the system manager, or add new users and groups.
 
-*Ansible* deals with this by providing a `become` keyword, which, if set to `true` means that *Ansible* will execute the task (or role) in question using 'root' permissions. This goes along with the `--ask-become-pass` commandline flag in the `ansible-playbook` application.
+*Ansible* deals with this by providing a `become` keyword, which, if set to `true` means that *Ansible* will execute the task (or role) in question using 'root' permissions. This goes along with the `--ask-become-pass` command-line flag in the `ansible-playbook` application.
 
 `frecklecute` does support that flag as well, and you can also tell it to execute some tasks using elevated permissions. If that is necessary, one can either use the 'exploded' form of task description I was referring to earlier, or, in the case of the short-form you specify the task name all uppercase. In our example, this would look like:
 
@@ -290,11 +290,11 @@ tasks:
 
 ```
 
-Obviously, this won't work for roles that have uppercase characters in their name. In those cases we'd have to use the 'exploded' form of configuration. Fortunately, this doesn't happen very often
+Obviously, this won't work for roles that have uppercase characters in their name. In those cases we'd have to use the 'exploded' form of configuration. Fortunately, this doesn't happen very often.
 
 ## Extras
 
-As a member of the *freckles* family, there are a few extra features `frecklecute` has available that mesh quite nicely with being able to quickly write those state-altering scripts:
+As a member of the *freckles* family, there are a few extra features `frecklecute` has that mesh quite nicely with being able to quickly write those state-altering scripts:
 
 ### transparent bootstrap
 
@@ -322,7 +322,7 @@ $ curl https://freckles.io | bash -s -- frecklecute -r gh:makkus/frecklets setup
 
 ### using a *frecklecutable* directly
 
-Since `frecklecute` acts like a kind of interpreter for a *frecklecutable*, you can use every *frecklecutable* directly, like for example you do with *bash* scripts. You need to add a shebang line to the beginning of the *yaml* file:
+Since `frecklecute` acts like a kind of interpreter for a *frecklecutable*, you can use every *frecklecutable* directly, like you do with *bash* scripts for example. You need to add a shebang line to the beginning of the *yaml* file:
 
 ```yaml
 #! /usr/bin/env frecklecute
