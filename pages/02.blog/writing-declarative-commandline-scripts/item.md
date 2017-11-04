@@ -140,7 +140,7 @@ The only 'non-Click' key in this example is the `is_var` one. This tells *freckl
 
 ### `tasks`
 
-This is the main section of a *frecklecutable*, and where things get done. This key contains a list of tasks to execute. Those tasks can be either *Ansible* [modules](docs.ansible.com/modules.html), or [roles](https://docs.ansible.com/ansible/2.4/playbooks_reuse_roles.html). In contrast to *Ansible playbooks*, *modules* and *roles* are treated the same within a *frecklecutable*. 
+This is the main section of a *frecklecutable*, and where things get done. This key contains a list of tasks to execute. Those tasks can be either *Ansible* [modules](https://docs.ansible.com/modules.html), or [roles](https://docs.ansible.com/ansible/2.4/playbooks_reuse_roles.html). In contrast to *Ansible playbooks*, *modules* and *roles* are treated the same within a *frecklecutable*. 
 
 There are two ways to define a task item in the task list, a verbose, 'exploded' way which has yet to be documented and written about, and a concise, short way which I'll describe here. The 'exploded' way is basically a dictionary with explicit metadata, and it can be necessary when using one of the more uncommon features or special cases. Both can be used interchangeably, as internally a short description is converted into the more explicit, verbose way.
 
