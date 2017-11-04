@@ -32,7 +32,7 @@ Right. This is the script (let's name it `setup_sudo_user`):
 ```yaml
 doc:
   short_help: "setup new sudo user"
-  help: "Setups a new user with (passwordless) sudo privileges.\n\nInstalls the 'sudo' package if necessary, and creates a group 'wheel' which will be allowed passwordless sudo-access."
+  help: "Sets up a new user with (passwordless) sudo privileges.\n\nInstalls the 'sudo' package if necessary, and creates a group 'wheel' which will be allowed passwordless sudo-access."
   
 args:
   user_name:
