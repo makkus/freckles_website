@@ -1,7 +1,7 @@
 ---
 title: "Declarative scripting, using Ansible modules and roles"
 published: true
-date: '31-10-2017 15:00'
+date: '04-11-2017 13:00'
 taxonomy:
     category:
         - blog
