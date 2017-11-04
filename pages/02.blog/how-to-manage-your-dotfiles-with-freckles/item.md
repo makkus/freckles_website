@@ -7,6 +7,7 @@ taxonomy:
         - blo
     tag:
         - freckles
+        - freckelize
         - dotfiles
 author: 'Markus Binsteiner'
 toc:
@@ -54,7 +55,7 @@ dotfiles
 
 If you created your dotfiles repository similar to this, and uploaded it to github, you can already use *freckles* to initialize a new machine:
 
-```
+```console
 $ curl https://freckles.io | bash -s -- freckelize dotfiles -f gh:<your github username>/<your dotfiles repo name> --no-install
 ```
 
@@ -74,7 +75,7 @@ You might have noticed the ``--no-install`` flag at the end of the above command
 
 Most of the time, if you have have configuration for an app, you want that app to be installed. And most of the time that application's package name is the same as the one you'll have used as sub-folder name in your dotfiles repository (e.g. `i3`, `zile`, ...). So, why not use that folder name as the metadata to make sure the application a set of configuration files is associated with is installed? This is what the the *freckelize* dotfile adapter does by default. So let's run the above command again, without ``--no-install``, and without the ``curl`` part since *freckles* is already installed:
 
-```
+```console
 $ source ~/.profile     # in case you haven't logged out and logged in again, to pick up the PATH freckles is installed in
 $ freckelize dotfiles -f gh:<your github username>/<your dotfiles repo name>
 ```
@@ -87,7 +88,7 @@ Now, most of the time you'll want additional applications to be installed, ones 
 
 This is easy to do as well with *freckelize*, but we need to create an extra metadata file to be able to tell *freckelize* which applications to install. *freckelize* can do more than just install and manage *dotfiles*, which is a topic for other blog posts, but it has one file it always looks up: `.freckle` in the root of the repository you point it to. So, let's add a few 'non-configuration' applications (using yaml syntax):
 
-```
+```yaml
 dotfiles:
   packages:
     - htop
@@ -98,7 +99,7 @@ As we are using the `freckelize` *dotfiles* adapter, we'll need to put details a
 
 I've prepared an example repository that contains configuration for the *fish* shell, as well as the *zile* editor, and which uses the above `.freckle` file, here: [https://github.com/makkus/dotfiles-test-simple](https://github.com/makkus/dotfiles-test-simple). To apply that dotfile repository to your machine would look like:
 
-```
+```consloe
 $ freckelize dotfiles -f gh:makkus/dotfiles-test-simple
 
 # using repo(s):
@@ -131,7 +132,7 @@ $ freckelize dotfiles -f gh:makkus/dotfiles-test-simple
 
 To check the created symlinks we can:
 
-```
+```console
 $ ls -lah ~
 total 57M
 drwxr-xr-x 8 vagrant vagrant 4.0K Oct 24 09:58 .

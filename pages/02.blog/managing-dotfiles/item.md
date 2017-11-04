@@ -67,13 +67,13 @@ This is probably the approach that gets recommended the most. It's a neat and ti
 
 In a setup like this, this is how you'd execute `stow`:
 
-```
+```console
 $ stow -d <dotfiles_dir> -t $HOME -S *
 ```
 
 This will link the contents of each of the sub-directories into `$HOME`, using the relative paths to them we created earlier (if necessary):
 
-```
+```console
 $ ls -lah ~/.bashrc
 lrwxrwxrwx 1 markus markus 38 Okt 22 16:38 /home/markus/.bashrc -> dotfiles/bash/.bashrc
 ```
@@ -84,7 +84,7 @@ lrwxrwxrwx 1 markus markus 38 Okt 22 16:38 /home/markus/.bashrc -> dotfiles/bash
 
 In order to manually configure a new machine using the configuration you created and uploaded to github, you'll have to do something like this (let's assume we are using an Ubuntu box):
 
-```
+```console
 $ sudo apt install git
 ...
 $ git clone https://github.com/makkkus/dotfiles.git ~/dotfiles

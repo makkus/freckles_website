@@ -7,6 +7,7 @@ taxonomy:
         - blog
     tag:
         - freckles
+        - freckelize
         - dotfiles
         - way-too-long
 author: 'Markus Binsteiner'
@@ -231,7 +232,7 @@ As I've mentioned, I use *nix* for most of my user-space applications. Not for a
 
 As we've learned, `frecklecute` takes notice of files named `.freckle`. It uses them as marker files, to figure out which folders to process. But it also uses them to read additional user-provided metadata that is related to the '*freckle*' folder and the adapter being used. To illustrate, this is how my `.freckle` file for the **terminal/extra** usage profile looks like:
 
-```
+```yaml
 - dotfiles:
     pkg_mgr: auto
     packages:
@@ -264,7 +265,7 @@ This instructs `frecklecute` to use the default package manager on a system ('au
 
 Another example is the `.freckle` file in my [**terminal/minimal**](https://github.com/makkus/dotfiles/tree/master/terminal/minimal) profile:
 
-```
+```yaml
 - dotfiles:
     pkg_mgr: auto
     packages:
@@ -279,7 +280,7 @@ This combines two package managers under the same `dotfiles` key. By default, al
 
 If we want to use a non-default package manager for one of the [folder-based applications](/blog/how-to-manage-your-dotfiles-with-freckles#installing-your-applications) installs, this can be done by adding a metadata file called `.package.freckle` in the relevant dotfile folder, like I did in [the one that holds my *tmux config*](https://github.com/makkus/dotfiles/blob/master/terminal/extra/tmux/.package.freckle):
 
-```
+```yaml
 pkg_mgr: nix
 ```
 
@@ -317,7 +318,7 @@ The 'ansible-tasks' adapter to the rescue! This adapter is written for those cas
 
 The way this adapter works is that it looks for a file called `.tasks.freckle` in the root of the *freckle* folder. If it finds it, and if it can parse it as yaml, it'll execute all the tasks that it contains. The tasks itself are described using the ['tasks'-part of the Ansible playbook format](http://docs.ansible.com/ansible/latest/playbooks_intro.html#playbook-language-example). It supports all the available official [Ansible modules](http://docs.ansible.com/ansible/latest/list_of_all_modules.html) as building blocks. A simple example is a list of a (single) task to ensure a few directories are present:
 
-```
+```yaml
 - name: 'creating folders in home dir'
   file:
     path: "{{ item }}"
@@ -329,7 +330,7 @@ The way this adapter works is that it looks for a file called `.tasks.freckle` i
 
 Or, a bit more involved, here's how I import my gpg when initializing a new machine:
 
-```
+```yaml
 - name: ensure gnupg config dir has right permissions
   file:
     path: "~/.gnupg"
