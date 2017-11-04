@@ -73,7 +73,7 @@ Related to bootstrapping, *freckles* tries to let you execute a configuration ru
 
 For example, in order to get all [my dotfiles](https://github.com/makkus/dotfiles) ('dotfiles' are configuration files) installed on a new machine, as well as all applications installed that are referenced in them, all I have to execute is:
 
-```
+```console
 curl https://freckles.io | bash -s -- freckelize dotfiles -f gh:makkus/dotfiles
 
 # or, if freckles is alrady installed
@@ -86,7 +86,7 @@ I'll talk a bit more about `freckelize` and *dotfiles* [below](#data-centric-con
 
 Another example would be to setup a machine that runs a webserver to host/redirect readthedocs.io documentation via your own domain and https, as explained [in the readthedocs documentation](http://docs.readthedocs.io/en/latest/alternate_domains.html) (weird example, I know -- but I had to do that recently for obvious reasons):
 
-```
+```console
 curl https://freckles.io | bash -s -- frecklecute gh:makkus/freckles/examples/readthedocsforwarding.yml
 
 # or, if freckles is alrady installed, and the script is available locally
@@ -102,7 +102,7 @@ One of the slight annoyances I feel when using *Ansible* to run a few tasks and/
 
 `frecklecute`, which comes as part of *freckles* can do just that. As you've seen in the above example, it can use either local or remote (yaml) files (which I call *frecklecutables*) to execute some tasks. Details about how this works can be found [here](https://docs.freckles.io/en/latest/frecklecute_command.html), but I'll show you the content of the `readthedocsforwarding.yml` file to give you an idea:
 
-```
+```yaml
 tasks:
 
   - install: fail2ban
@@ -186,7 +186,7 @@ In addition to all this, *freckles* can also be used to quickly write commandlin
 
 A quick example script to create a folder using the 'file' *Ansible module*, and user-input for the folder to create would be:
 
-```
+```yaml
 #! /usr/bin/env frecklecute
 doc:
   help: create a folder
@@ -201,7 +201,7 @@ tasks:
 
 Saved in a file called 'folder-create', chmod'ed to be executable, and either put in your PATH or executed directly would look like:
 
-```
+```console
 $ create-folder --help
 Usage: frecklecute ./create-folder [OPTIONS]
 
@@ -224,7 +224,7 @@ $ create-folder --path ~/now-that-is-a-folder-created-in-an-interesting-way
 
 Or upload it to github and execute it like so:
 
-```
+```console
 $ frecklecute gh:makkus/freckles/examples/create-folder --path ~/a-folder-created-from-a-remote-frecklecutable
 
 * starting tasks (on 'localhost')...
@@ -241,7 +241,7 @@ And, if you really want to go all out, you can even combine this with the online
 
 And, for extra credit, and those of use who only want to quickly execute an Ansible role, on a machine without anything useful installed (again, except for `curl` or `wget`):
 
-```
+```console
 $ curl https://freckles.io | bash -s -- frecklecute ansible-task --become --task-name mongrelion.docker
 ```
 
