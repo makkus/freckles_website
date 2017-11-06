@@ -97,7 +97,7 @@ $ sudo apt install i3 zile zsh <all other applications you use>
 ...
 ```
 
-You could probably do the app installs in one command, and `git` is most likely already installed. So, this doesn't look to bad and could be scripted fairly easily, especially if you don't have a lot of applications to install, and you always use the same operating system or distribution (as different OS's or distributions have sometimes different package names for the same application).
+You could probably do the app installs in one command, and `git` is most likely already installed. So, this doesn't look too bad and could be scripted fairly easily, especially if you don't have a lot of applications to install, and you always use the same operating system or distribution (as different OS's or distributions have sometimes different package names for the same application).
 
 So, as long as your setup is as simple as my example here, I'd recommend stop reading here, and just do it like this (or, as mentioned above, use a bare git repo instead).
 
