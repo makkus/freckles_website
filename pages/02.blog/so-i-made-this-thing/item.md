@@ -239,7 +239,7 @@ And, if you really want to go all out, you can even combine this with the online
 
 ### Direct Ansible role or module execution
 
-And, for extra credit, and those of use who only want to quickly execute an Ansible role, on a machine without anything useful installed (again, except for `curl` or `wget`):
+And, for extra credit, and those of us who only want to quickly execute an Ansible role, on a machine without anything useful installed (again, except for `curl` or `wget`):
 
 ```console
 $ curl https://freckles.io | bash -s -- frecklecute ansible-task --become --task-name mongrelion.docker
