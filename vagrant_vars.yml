@@ -1,0 +1,6 @@
+- freckle:
+   owner: vagrant
+   group: vagrant
+
+- grav:
+    grav_webserver_port: 8280
