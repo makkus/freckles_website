@@ -12,6 +12,9 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "10.11.12.13"
 
   config.vm.synced_folder ".", "/vagrant", id: "vagrant"
+  config.vm.synced_folder "/home/markus/projects/freckles", "/freckles", id: "freckles", owner: "vagrant", group: "vagrant"
+  config.vm.synced_folder "/home/markus/projects/adapters", "/adapters", id: "adapters", owner: "vagrant", group: "vagrant"
+  config.vm.synced_folder "/home/markus/projects/ansible", "/ansible", id: "ansible", owner: "vagrant", group: "vagrant"
   # config.vm.synced_folder "/home/markus/.local/inaugurate", "/home/vagrant/.local/inaugurate", id: "inaugurate", owner: "vagrant", group: "vagrant"
 
   config.vm.provider "virtualbox" do |vb|
@@ -23,6 +26,6 @@ Vagrant.configure("2") do |config|
     # sudo ln -s /home/vagrant /home/markus
     # sudo chown vagrant:vagrant /home/vagrant/.local
 
-    wget -O - https://freckles.io | sudo bash -s -- freckelize -r gh:makkus/frecklets grav -f /vagrant/ --port 8280 --nginx-user vagrant
+    # wget -O - https://freckles.io | sudo bash -s -- freckelize -r gh:makkus/frecklets grav -f /vagrant/ --port 8280 --nginx-user vagrant
   SHELL
 end
