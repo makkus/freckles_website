@@ -13,9 +13,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder ".", "/vagrant", id: "vagrant"
   config.vm.synced_folder "/home/markus/projects/freckles", "/freckles", id: "freckles", owner: "vagrant", group: "vagrant"
-  config.vm.synced_folder "/home/markus/projects/adapters", "/adapters", id: "adapters", owner: "vagrant", group: "vagrant"
-  config.vm.synced_folder "/home/markus/projects/ansible", "/ansible", id: "ansible", owner: "vagrant", group: "vagrant"
-  # config.vm.synced_folder "/home/markus/.local/inaugurate", "/home/vagrant/.local/inaugurate", id: "inaugurate", owner: "vagrant", group: "vagrant"
+#  config.vm.synced_folder "/home/markus/projects/adapters", "/adapters", id: "adapters", owner: "vagrant", group: "vagrant"
+#  config.vm.synced_folder "/home/markus/projects/ansible", "/ansible", id: "ansible", owner: "vagrant", group: "vagrant"
+#  # config.vm.synced_folder "/home/markus/.local/inaugurate", "/home/vagrant/.local/inaugurate", id: "inaugurate", owner: "vagrant", group: "vagrant"
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
