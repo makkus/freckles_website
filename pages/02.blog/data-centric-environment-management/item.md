@@ -1,6 +1,6 @@
 ---
 title: "Data-centric environment management"
-published: false
+published: true
 date: '13-01-2018 06:00'
 taxonomy:
     category:
@@ -14,34 +14,49 @@ toc:
     headinglevel: 3
 ---
 
-This is something that bugged me for what feels like ever: whenever I have one or a set of files I work with, I need to initially do some work to prepare my laptop or server or container or whatever to deal with those files. For example: 
+I hate repetition. And I especially hate repetitive work. Unfortunately -- probably because of that whole thing with the apple 6000 years ago -- I always find myself doing repetitive work. Even when I always always always go out of my way to avoid doing repetitive work. Often I find myself writing scripts which take me 10 times longer to write than doing the repetitive thing I try to avoid a million-billion times by hand. 
+
+If you are working in I.T., chances are you hate repetitive work also. Luckily, a lot of I.T. work is devoted to cutting down on repetitive work. Because, after all, that's what computers are good at: give them the same problem several times, and they'll work on it the same way all those several times. Without complaining, mostly. Even if they have to do it repetitively a million-billion times and then a million-billion times again.
+
+Besides any potential personal aversion against repetitive work one might have there is another reason humans shouldn't be doing repetitive work if a computer can do it: the chance of making a mistake grows the more often you do a repetitive thing. Computers either do it always wrong, or -- better -- always right. Provided, of course, somebody wrote tests for all possible and impossible edge cases. Which, obviously, always happens.
+
+===
+
+So, long story short, there is one (non-obvious, but very generic) repetitive thing that, over the years, annoyed me more than other repetitive things: setting up an environment on a computer (virtual, physical, whatever) in order for this computer to deal with a set of files/data that is of a type it isn't prepared to deal with yet. 
+
+For example: 
 
 - if I have Python source files, I need to make sure I have (the right version of) Python installed, a virtualenv created, and dependencies installed via `pip`
-- if I have markdown files representing content for (this here) blog, I need to setup and configure a webserver, maybe install PHP and probably also some (the right) PHP libraries, as well as [grav](https://getgrav.org)
-- if I have a dump of a database, I need to have the `mysql` (or other) database server installed to be able to use the dump to restore all it's tables, then I have to execute the restore command 
+- if I have markdown files representing content for (this here) blog, I need to setup and configure a webserver (say, `nginx`), maybe install PHP and probably also some (the right) PHP libraries, then I have to download [grav](https://getgrav.org) and put it into the right folder so `nginx` can find it
+- if I have backup data of a service that needs migration to a new machine (virtual or not) I have to re-setup and configure the service, and restore the backup data in some way or other
 
-Now, what bugs me is that this is repetitive work, and work that shouldn't be necessary as those files usually already contain all the metadata needed to figure out what they are and what they need in terms of host environment to be useful. And even if not, just augmenting those sets of files with a minimal amount of metadata should be enough to remove any uncertainty. 
+It appears to me that, if I know what type of data I deal with, and if I have a set of (ideally best) practices for that type of data, a computer would be able to do that sort of setting up for me. Right? ... RIGHT???
 
-What I want is a tool I point at a folder, and which does everything necessary. Without me having to hold hands, provided it can find all the metadata it needs.
+Not only that, if the computer would know what kind of platform/distribution/version of distribution it runs (which it always does since, hey, it's the one running it...), and if it had instructions that outline what to do differently an each of those platforms, it could always, automatically, prepare a host environment that is hospitable to the kind of data in question, and there would be no manual intervention necessary. AT ALL.
 
-So, long story short, I wrote such a tool: [freckelize](https://docs.freckles.io/en/latest/freckelize_command.html). `freckelize` is part of a project called [freckles](https://github.com/makkus/freckles) which is an experiment to find ways to re-use all those existing tasty [Ansible](https://ansible.com) modules and roles for things beside 'traditional' configuration management.
+What would be necessary is somebody preparing those sort of recipes, best practices and platform-dependent instructions for all the potential types of data we come across. In a way that the computer can understand. But, the good thing is, we could do that in a collaborative and evolutionary fashion, starting off with a simple use-case, and build on top of that to support more options, features, and platforms in the future. We'd have one place to improve a recipe for a give use-case or type of data, and that recipe would go through the normal stages of software development until it can be considered stable and comprehensive enough. 
 
-For the purpose of this blog post I will refrain from writing about details how `frecklelize` works, what features beside the basic ones it has, what the security implications of a tool like that are, and anything else that might distract from getting across the basic idea behind it.
+So, what's left is the glue, an application that runs on the computer, is pointed at the data we are interested in, parses that data (and potential augmenting metadata), chooses the right recipes for that type of data and platform it runs on, and executes those recipes in the way the data/metadata demands.
 
-So, to get an idea what I'm talking about, a (simple) example:
+There are two types of existing applications that do parts of what I'm describing: configuration management engines like [Ansible](https://ansible.com), [SaltStack](https://saltstack.com/), [Puppet](https://puppet.com), etc., and build systems like [make](https://www.gnu.org/software/make/), [maven](https://maven.apache.org/), [Rake](https://github.com/ruby/rake) and so on. But those are either focused on a bigger infrastructure and network environment, only understand a certain type of data (Java project, Ruby project, ...), or are very low-level and don't have the building blocks to manipulate the state of a machine in an efficient way. There might be other tools, but if there are, I don't know about them.
 
-### preparing a machine to serve a static webpage
+Now, all of this led me to work on [freckelize](https://docs.freckles.io/en/latest/freckelize_command.html). `freckelize` is part of a project called [freckles](https://github.com/makkus/freckles) which is designed as a layer on top of 'Ansible', and is an experiment to find ways to re-use all those existing tasty [Ansible](https://ansible.com) [modules](http://docs.ansible.com/list_of_all_modules.html) and [roles](https://galaxy.ansible.com/) for things beside 'traditional' configuration management.
+
+In this blog post I'm not going into too much detail about how `freckelize` works, what features beside the basic ones it has, what the security implications of using a tool like that are. And anything else that might distract from getting across the basic idea behind it. 
+
+To illustrate that basic idea, I'll use the very simple example of hosting a static webpage, where the data we work with is a simple, and single, html file. I also wrote a more in-depth blog post about this usage scenario, so if you are interested in those details, check it out [here](XXXX).
 
 ---
-**NOTE**
 
-As of now, the examples below are only tested on Debian Stretch. Other platforms and distribution versions would be easy to add, but I haven't had the time yet.
+**NOTE**: the 'static-website' recipe I'm using below is currently only tested on Debian Stretch
 
 ---
 
-For the most simple case, all we need is a `index.html` file, containing some minimal html:
+The example dataset -- a single html file, plus an optional metadata file named `.freckle` -- can be found here: [https://github.com/freckles-io/example-static-webpage](https://github.com/freckles-io/example-static-webpage).
 
-```
+Let's put those two files in a folder called `example-simple-website`. The `index.html` file looks like this:
+
+```html
 <!DOCTYPE html>
 <html>
 <body>
@@ -51,89 +66,63 @@ For the most simple case, all we need is a `index.html` file, containing some mi
 </html>
 ```
 
-Put that in a folder `my_site`. Now, assuming `freckelize` is already installed, we'd type this:
+And this is `.freckle` file, which contains additional metadata:
 
-```
-freckelize static-website -f my_site/
-```
-
-`freckelize` has so called 'adapters' which deal with certain types of data profiles. The adapter for the static website data profile is called, well, `static-website`. What this adapter will do is:
-
-- installs the `nginx` webserver, to be run as the user who owns the `my_site` folder (as otherwise there might be no read permission -- this can be configured though, see below)
-- configures the `nginx` webserver to listen on `localhost` port 80 (which is the adapter default and can be changed)
-- configures a virtual host that uses the `my_site` folder as it's root
-- makes sure the `nginx` systemd service is enabled and started
-
-### adding metadata
-
-#### adding metadata: type of the data-set
-
-To keep everything neat and tidy, I think it's a good idea to add metadata about the `my_site` folder to the folder itself. `freckelize` by default reads a file called `.freckle`, which uses the [yaml](https://en.wikipedia.org/wiki/YAML) format and sits in the root of the data-set/folder.
-
----
-** NOTE **
-
-For convenience -- I realize and don't care it sounds slightly stupid -- I might refer to the folder containing data that `freckelize` can handle as a `freckle` or a `freckle folder` from now on. 
-
----
-
-This is what we put in the `.freckle` file to tell `freckelize` the data is a static website:
-
-```
-- static-website
-```
-
-
-Among other things, that allows us to let `freckelize` worry about which adapter to use:
-
-```
-freckelize -f my_site
-```
-
-Notice how we don't use the `static-webpage` command anymore. Also, on a sidenote: `freckelize` uses Ansible as the backend that does the actual work of setting up the environment, and as Ansible runs are (mostly) [idempotent](https://en.wikipedia.org/wiki/Idempotence) we can run those commands as often as we want without breaking things.
-
-#### adding metadata: the port the webserver should listen on
-
-Now, let's assume port 80 is not a good port to use. Maybe we already have another webserver running and this is only for development. Or we are using this inside a Vagrant box that only forwards port 8080. Doesn't matter. Here's how we change the `.freckle` file to use port 8080:
-
-```
+```yml
 - static-website:
-    static_website_port: 8080
+    static_website_domain: 127.0.0.1   # ip address or domain name used by this server
+    static_website_port: 80            # port the webserver listens to
 ```
 
-After another `freckelize -f my_site` we can visit [http://127.0.0.1:8080](http://127.0.0.1:8080) in our browser and should be able to get to our shiny page.
+This latter `.freckle` file is optional, but useful to adjust some of `freckelize`'s behavior. It uses `yaml` syntax, and contains a list of types of data to be considered, including potential variables per type. In this case it contains two variables, which both are set to default values, which means that this file doesn't affect behavior just yet.
+
+So, this is what you have to do (assuming `freckles` is already installed) to install a webserver (`nginx` in this case) and configure it to host our website:
+
+```
+freckelize static-website -f example-simple-website
+```
+
+Done. Check if it's working by visiting: [http://127.0.0.1](http://127.0.0.1)
+
+Since this folder already contains a '.freckle' file that includes the 'static-website' item, we could have just omitted the 'static-website' command:
+
+```
+freckelize -f example-simple-website
+```
+
+Should we not have that folder on our local machine but only on Github, we can let `freckelize` also clone it for us:
+
+```
+freckelize -f https://github.com/freckles-io/example-static-webpage.git -t /var/lib/freckles
+```
+
+This will clone the repository as a sub-folder of `/var/lib/freckles` (which is a nice place to collect those sort of folders). Then it'll do the same things it did before using the local folder.
+
+There are more scenarios `freckelize` supports, like for example pointing it to a remote tarball of the data. Refer to [the documentation](https://docs.freckles.io) for details. In the future, anyway. Need to re-write parts of that documentation to bring it up-to-date. Sorry.
+
+As an example this is not really impressive, I'm sure, as this is something that would not take a lot of time to do by hand. Just a `sudo apt-get install nginx`, and some configuration editing somewhere in `/etc/nginx/`.
+
+To illustrate how easy it is to accomplish more complex tasks, let's say we want to host that website on a VPS somewhere, via https and a (valid) [Let's encrypt](https://letsencrypt.org/) certificate. This is supported by the `static-website` ([source](XXX))recipe ('adapter' in `freckelize`-speak). We need to provide a bit more information to `freckelize` though, as it wouldn't know the domain name to use, and the email address the folks over at "Let's encrypt" require. Also, we need to configure DNS so that the domain name we use points to the VPS IP address. This has to be done manually, and since it depends a lot on the providers that are used I won't write about how to do that.
+
+Let's edit the `.freckle` file:
+
+```
+- freckle:
+    owner: www-data
+    group: www-data
+    
+- static-website:
+    static_website_domain: example.frkl.io
+    static_website_port: 80
+    lets_encrypt_email: makkus@frkl.io
+```
+
+We leave the port as 80, the adapter will automatically create a vhost configuration to forward all traffic to the default https port (443). The adapter is written in a way that, if it encounters the `lets_encrypt_email` variable with a string other than 'none', it'll use that value as email address and request a https certificate for the domain specified from "Let's encrypt". In addition, it'll setup a cron job that makes sure that certificate will be re-newed before it expires.
 
 
+Now, there are a lot of reasons why doing 'data-centric environment management' is a stupid idea, and I trust the internet (especially the part that really likes how things are done at the moment) will come up with all of them. And I agree that there are a lot of use-cases where doing it this way is not appropriate at all. I do also think though that there's a niche for a tool like this (doesn't need to be `freckelize` -- happy to see someone write something better), and I especially think it'd be good for all of us if we came together to work on the sort of recipes I was describing above. In a more comprehensive, focused and collaborative way than, for example, Ansible roles are developed at the moment. Creating a repository of 'best practices' for different types data structures along the way...
 
+I'll write more in-detail examples for using `freckelize` in different scenarios, and with different data profiles. So, if you are intersted, check back here every now and then.
 
-I had this idea. Imagine you have:
-
-- a folder containing metadata about the type of data it contains, as well as the data itself
-- a generic (configuration-management-like) tool that knows how to 'read' said folder and that provides a library of actions commonly needed to setup machines
-- an adapter (basically a plugin for that tool) for each type of data you are interested in, those adapters know how to bring a machine from an unknown state to one that enables the machine to work with said data
-
-If you had that, in order to setup a machine to be able to work with that data, you'd have to:
-
-- install the tool, if not already installed, as well as any extra adapters you might need
-- put the folder with your data on your machine
-- point the tool to the folder, and wait for it to bring your machine to a state that is able to support the data
-
-Let's use a static webpage as a simple example. The data would look something like:
-
-- index.html
-
-In addition to that, we'd have a metadata file that describes the type of data we are dealing with, as well as (optional configuration options, if applicable):
-
-static-webpage:
-  webserver: nginx
-  
-In order to process that, we'd have an adapter called 'static-webpage' that would install either the Apache webserver, or nginx, depending on configuration provided in the folder metadata.
-
-Now, before the obligatry 'we-already-can-do-that-with-our-current-tools-why-would-we-need-something-new-i-don't-like-new-ideas-and-potential-change'-reaction kicks in, let me say that, yes, this is obviously not useful or a good idea in every case where one needs to setup one or a set of machines in a reproducible way. But I have an intuition that a workflow like this could simplify tooling and it's user interface as well as speed up configuration in certain cases.
-
-What would be different? 
-
-Well, for one, by storing configuration and other metadata 'physically' with the data a service or application uses we don't have to worry about having and maintaining a place for our infrastructure configuration. No registry, or 'inventory'. We have to backup our data anyway, so why not also store everything else related to that data with it?
-
-Then, we could build up a repository of data types along with adapters that could process those data types. Those adapters could be developed and improved over time, for example to support different Linux distributions for the (data) host system, even different OSs. As a bonus side-effect, such a repository would also serve as a place that would have information about best practices and good layouts for each of the
+Also, please get in touch if you have questions, or suggestions. Either via [email](mailto:makkus@posteo.de), [gitter](https://gitter.im/freckles-io/Lobby), or a [Github issue](https://github.com/makkus/freckles/issues).
 
