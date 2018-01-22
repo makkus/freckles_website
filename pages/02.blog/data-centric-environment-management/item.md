@@ -119,6 +119,9 @@ Let's edit the `.freckle` file:
 
 We leave the port as 80, the adapter will automatically create a vhost configuration to forward all traffic to the default https port (443). The adapter is written in a way that, if it encounters the `lets_encrypt_email` variable with a string other than 'none', it'll use that value as email address and request a https certificate for the domain specified from "Let's encrypt". In addition, it'll setup a cron job that makes sure that certificate will be re-newed before it expires.
 
+XXX
+advantages
+disadvantages
 
 Now, there are a lot of reasons why doing 'data-centric environment management' is a stupid idea, and I trust the internet (especially the part that really likes how things are done at the moment) will come up with all of them. And I agree that there are a lot of use-cases where doing it this way is not appropriate at all. I do also think though that there's a niche for a tool like this (doesn't need to be `freckelize` -- happy to see someone write something better), and I especially think it'd be good for all of us if we came together to work on the sort of recipes I was describing above. In a more comprehensive, focused and collaborative way than, for example, Ansible roles are developed at the moment. Creating a repository of 'best practices' for different types data structures along the way...
 
