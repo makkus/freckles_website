@@ -90,13 +90,13 @@ Since this folder already contains a '.freckle' file that includes the 'static-w
 freckelize -f example-simple-website
 ```
 
-Should we not have that folder on our local machine but only on Github, we can let `freckelize` also clone it for us:
+In the case that we don't have that folder on our local machine but only on Github, we can let `freckelize` also clone it for us:
 
 ```
 freckelize -f https://github.com/freckles-io/example-static-webpage.git -t /var/lib/freckles
 ```
 
-This will clone the repository as a sub-folder of `/var/lib/freckles` (which is a nice place to collect those sort of folders). Then it'll do the same things it did before using the local folder.
+This will check out the repository as a sub-folder of `/var/lib/freckles` (which is a nice place to collect those sort of folders). Then it'll do the same things it did before using the local folder.
 
 There are more scenarios `freckelize` supports, like for example pointing it to a remote tarball of the data. Refer to [the documentation](https://docs.freckles.io) for details. In the future, anyway. Need to re-write parts of that documentation to bring it up-to-date. Sorry.
 
