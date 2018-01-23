@@ -13,7 +13,7 @@ toc:
     headinglevel: 3
 ---
 
-I hate repetition. And I especially hate repetitive work. Unfortunately -- probably because of that whole thing with that apple 6000 years ago -- I always find myself doing repetitive work. Even when I always always always go out of my way to avoid doing repetitive work. Often I find myself writing scripts which take me 10 times longer to write than what it'd take to do the repetitive thing I try to avoid a million-billion times by hand. 
+I hate repetition. And I especially hate repetitive work. Unfortunately -- probably because of that whole thing with that apple 6000 years ago -- I always find myself doing repetitive work. Even when I always always always go out of my way to avoid doing repetitive work. Often I find myself writing scripts which take me 10 times longer to write than what it'd take me to do the repetitive thing I try to avoid a million-billion times by hand. 
 
 If you are working in I.T., chances are you hate repetitive work also. Luckily, a lot of I.T. work is devoted to cutting down on repetitive work. Because, after all, that's what computers are good at: give them the same problem several times, and they'll work on it the same way all those several times. Without complaining, mostly. Even if they have to do it repetitively a million-billion times and then a million-billion times again.
 
@@ -31,7 +31,7 @@ For example:
 
 It appears to me that, if I know what type of data I deal with, and if I have a set of (ideally best) practices for that type of data, a computer would be able to do that sort of setting up for me. Right? ... RIGHT???
 
-Not only that, if the computer would know what kind of platform/distribution/version of distribution it runs (which it always does since, hey, it's the one running it...), and if it had instructions that outline what to do differently an each of those platforms, it could always, automatically, prepare a host environment that is hospitable to the kind of data in question, and there would be no manual intervention necessary. AT ALL.
+Not only that, if the computer would know what kind of platform/distribution/version of distribution it runs (which it always does since, hey, it's the one running it...), and if it had instructions that outline what to do differently an each of those platforms, it could always, automatically, prepare a host environment that is hospitable to the kind of data in question, and there would be no manual intervention necessary. AT bloody ALL.
 
 What would be necessary is somebody preparing those sort of recipes, best practices and platform-dependent instructions for all the potential types of data we come across. In a way that the computer can understand. But, the good thing is, we could do that in a collaborative and evolutionary fashion, starting off with a simple use-case and best practice, and build on top of that to support more options, features, and platforms in the future. We'd have one place to improve a recipe for a give use-case or type of data, and that recipe would go through the normal stages of software development until it can be considered stable and comprehensive enough. 
 
