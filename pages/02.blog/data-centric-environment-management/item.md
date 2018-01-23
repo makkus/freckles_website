@@ -41,7 +41,7 @@ There are two classes of existing applications that do parts of what I'm describ
 
 Now, all of this led me to work on [freckelize](https://docs.freckles.io/en/latest/freckelize_command.html). `freckelize` is part of a project called [freckles](https://github.com/makkus/freckles) which is designed as a layer on top of 'Ansible', and is an experiment to find ways to re-use all those existing tasty [Ansible](https://ansible.com) [modules](http://docs.ansible.com/list_of_all_modules.html) and [roles](https://galaxy.ansible.com/) for things besides 'traditional' configuration management.
 
-In this blog post I'm not going into too much detail about how `freckelize` works, what features aside from the basic ones it has, what the security implications of using a tool like that are. And anything else that might distract from getting across the basic idea behind it. I'll write about all that in a followup post.
+In this blog post I'm not going into too much detail about how `freckelize` works, what features -- aside from the basic ones -- it has, what the security implications of using a tool like that are. And anything else that might distract from getting across the basic idea behind it. I'll write about all that in a follow-up post.
 
 So, to illustrate that basic idea I'll use the very simple example of hosting a static webpage, where the data we work with is a single html file. I also wrote a more in-depth blog post about this exact usage scenario, so if you are interested in those details, check it out [here](/blog/example-static-website) later.
 
@@ -78,7 +78,7 @@ This latter `.freckle` file is optional, but useful to adjust some of `freckeliz
 So, this is what you have to do (assuming `freckles` is already installed) to install a webserver (`nginx` in this case) and configure it to host our website:
 
 ```
-freckelize static-website -f example-simple-website
+freckelize static-website -f example-static-website
 ```
 
 Done. Simple, he? Check if it's working by visiting: [http://127.0.0.1](http://127.0.0.1)
@@ -86,7 +86,7 @@ Done. Simple, he? Check if it's working by visiting: [http://127.0.0.1](http://1
 Since this folder already contains a '.freckle' file that includes the 'static-website' type, we could have just omitted the 'static-website' command:
 
 ```
-freckelize -f example-simple-website
+freckelize -f example-static-website
 ```
 
 In the case that we don't have that folder on our local machine but only on Github, we can let `freckelize` also clone it for us, before doing it's thing:
@@ -95,13 +95,13 @@ In the case that we don't have that folder on our local machine but only on Gith
 freckelize -f https://github.com/freckles-io/example-static-webpage.git -t /var/lib/freckles
 ```
 
-This will check out the repository as a sub-folder of `/var/lib/freckles` (which is a nice place to collect those sort of folders). Then it'll do exactly what it did before, when using just the local folder.
+This will check out the repository as a sub-folder of `/var/lib/freckles` (which is a nice place to collect those sort of folders). Then it'll do exactly what it did before, when using the local folder.
 
 There are more scenarios `freckelize` supports, like for example pointing it to a remote tarball of the data. Refer to [the documentation](https://docs.freckles.io) for details. In the future, anyway. Need to re-write parts of that documentation to bring it up-to-date. Soooooorry.
 
-As an example this is not really impressive, I'm sure, as this is something that would not take a lot of time to do by hand. Just a `sudo apt-get install nginx`, and some configuration editing somewhere in `/etc/nginx/`. Or a simple Ansible playbook.
+As an example this is not really impressive, I'm sure, as this is something that would not take a lot of time to do by hand. Just a `sudo apt-get install nginx`, and some configuration editing somewhere in `/etc/nginx/`. 
 
-To illustrate how easy it is to accomplish more complex tasks: let's say we want to host that website on a VPS somewhere, via https and a (valid) [Let's encrypt](https://letsencrypt.org/) certificate. This is supported by the `static-website` ([source](https://github.com/freckles-io/adapters/tree/master/web/static-website)) recipe ('adapter' in `freckelize`-speak). We need to provide a bit more information to `freckelize` though, as it wouldn't know the domain name to use, and the email address the folks over at "Let's encrypt" require. Also, we need to configure DNS so that the domain name we use points to the VPS IP address. This has to be done manually, and since it depends a lot on the providers that are used I won't write about how to do that.
+To illustrate how easy it is to accomplish more complex tasks: let's say we want to host that website on a VPS somewhere, via https and a (valid) [Let's encrypt](https://letsencrypt.org/) certificate. This is supported by the `static-website` ([source](https://github.com/freckles-io/adapters/tree/master/web/static-website)) recipe ('adapter' in `freckelize`-speak). We need to provide a bit more information to `freckelize` though, as it wouldn't know the domain name to use, and the email address the folks over at "Let's encrypt" require. Also, we need to configure DNS so that the domain name we use points to the VPS IP address. This last thing has to be done manually though, and since it depends a lot on the providers that are used I won't write about how to accomplish it.
 
 Let's edit the `.freckle` file:
 
@@ -116,14 +116,12 @@ Let's edit the `.freckle` file:
     lets_encrypt_email: makkus@frkl.io
 ```
 
-We leave the port as '80', the adapter will automatically create a vhost configuration to forward all traffic to the default https port (443) if configured to use https. The adapter is written in a way that, if it encounters the `lets_encrypt_email` variable with a string other than 'none', it'll use that value as email address and request a https certificate for the domain specified from the "Let's encrypt" service. In addition, it'll setup a cron job that makes sure that certificate will be re-newed before it expires.
+We add a generic section about who should own the data (which will also determine the user `nginx` runs under). We leave the port as '80', the adapter will automatically create a vhost configuration to forward all traffic to the default https port (443) if configured to use https. The adapter is written in a way that, if it encounters the `lets_encrypt_email` variable with a string other than 'none', it'll use that value as email address and request a https certificate for the domain specified from the "Let's encrypt" service. In addition, it'll setup a cron job that makes sure that certificate will be re-newed before it expires.
 
-So, that was that. I hope all that made at least a tiny bit of sense except to me...
+So, that was that. I hope all that made at least a tiny bit of sense to anybody other than myself...
 
-There's a lot more to be said. For example, how that is different from 'normal' configuration management, why one would choose one over the other, how one could compliment the other, how that could be used with all types of technologies like LXC, Docker, Vagrant. What the disadvantages of using this kind of thing are, and how stupid it is anyway (I'm sure that tiny opinionated part of the internet could collectively come up with an exhaustive list in no-time). And what more could be done with it that I haven't even hinted at yet.
+There's a lot more to be said. For example, how that is different from 'normal' configuration management, why you would choose one over the other, how one could compliment the other, how this could be used with technologies like LXC, Docker, Vagrant. What the disadvantages of using this kind of thing are. And what else could be done with it that I haven't even hinted at yet.
 
-My plan is to write about all that and more in the future, if it looks like there is any interest. If not, I might do anyway though :-)
-
-So, please, do check back here every now and then.
+My plan is to write about all that and more in the future. So, please, do check back here every now and then.
 
 Also, get in touch if you have questions, or suggestions. Either via [email](mailto:makkus@posteo.de), [gitter](https://gitter.im/freckles-io/Lobby), or a [Github issue](https://github.com/makkus/freckles/issues).
