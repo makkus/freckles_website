@@ -14,7 +14,7 @@ toc:
     headinglevel: 3
 ---
 
-As promised in [this post](XXX), here is a more in-depth article about how to use [`freckelize`](https://docs.freckles.io/en/latest/freckelize_command.html) to setup a machine in order for it to serve a static webpage.
+As promised in [this post](/blog/data-centric-environment-management), here is a more in-depth article about how to use [`freckelize`](https://docs.freckles.io/en/latest/freckelize_command.html) to setup a machine in order for it to serve a static webpage.
 
 ===
 
@@ -28,7 +28,7 @@ For convenience -- and as a convention -- I might refer to the folder containing
 
 ## Requirements
 
-Currently, only Debian Stretch is supported as a host system platform. This should change in the future, as the plan is for every adapter like this one to support as many platforms as possible.
+Currently, only Debian Stretch is supported as a host system platform for this as I haven't tested it on anything else yet. Ubuntu will probably work also, but might not. This should change in the future, as the plan is for every adapter like this one to support as many platforms as possible. 
 
 Also, obviously, [the `freckles` package has to be installed](https://docs.freckles.io/en/latest/bootstrap.html) (or you use the 'inaugurate' way of running `freckelize`'s first invocation) in order for this to work.
 
@@ -57,7 +57,7 @@ Now, assuming `freckelize` is already installed, we'd type this:
 freckelize static-website -f my_site/
 ```
 
-`freckelize` has so called 'adapters' which deal with certain types of data profiles. The adapter for the static website data profile is called, well, `static-website`, and you can find it's source [here](XXXX). What this adapter will do is:
+`freckelize` has so called 'adapters' which deal with certain types of data profiles. The adapter for the static website data profile is called, well, `static-website`, and you can find it's source [here](https://github.com/freckles-io/adapters/tree/master/web/static-website). What this adapter will do is:
 
 - installs the `nginx` webserver, to be run as the user who owns the `my_site` folder (as otherwise there might be no read permission -- this can be configured though, see below)
 - configures the `nginx` webserver to listen on `localhost` port 80 (which is the adapter default and can be changed)
@@ -99,7 +99,7 @@ After another `freckelize -f my_site` we can visit [http://127.0.0.1:8080](http:
 
 #### Metadata: generic folder properties
 
-There are a few properties that apply to all freckle folders. The ost important ones being `owner` and `group`. Since those are applicable independent of the adapter that is used, they go in their own section of the `.freckle` file:
+There are a few properties that apply to all freckle folders. The most important ones being `owner` and `group`. Since those are applicable independent of the adapter that is used, they go in their own section of the `.freckle` file:
 
 ```
 - freckle:
@@ -110,7 +110,7 @@ There are a few properties that apply to all freckle folders. The ost important 
     static_website_port: 8080
 ```
 
-Before this, `freckelize` and the `static-website` adapter used the onwer of the `my_site` folder as the user to run `nginx`. Now, with this new configuration, after re-running `freckelize -f my_site`, the folder will be owned by the `www-data` user, and `nginx` will be run under that same user. As it should be -- apart from when you do development -- as then it's easier to run the web-server under your own username, so both you and the server have easy read/write permissions on the folder.
+Before this, `freckelize` and the `static-website` adapter used the onwer of the `my_site` folder as the user to run `nginx`. Now, with this new configuration, after re-running `freckelize -f my_site`, the folder will be owned by the `www-data` user, and `nginx` will be run under that same user. As it should be -- apart from when you do development -- as then it's easier to just run the web-server under your own username, so both you and the server have easy read/write permissions on the folder in question.
 
 
 #### Metadata: everything else
@@ -147,7 +147,7 @@ static-website
 
 #### Option:  adding a "let's encrypt"-certificate
 
-So, according to this, a full-blown, 'production'-ready configuration would look something like:
+So, according to this, a full-blown, 'production'-ready configuration (minus security hardening, but who needs that anyway...) would look something like:
 
 ```
 - freckles:
@@ -162,3 +162,4 @@ So, according to this, a full-blown, 'production'-ready configuration would look
 
 We leave the port as 80, the adapter will automatically create a vhost configuration to forward all traffic to the default https port (443). The adapter is written in a way that, if it encounters the `lets_encrypt_email` variable with a string other than 'none', it'll use that value as email address and request a https certificate for the domain specified from "Let's encrypt". In addition, it'll setup a cron job that makes sure that certificate will be re-newed before it expires.
 
+That's it for now, folks. More to come soon, stay tuned for the same thing again, in 'Wordpress'...
