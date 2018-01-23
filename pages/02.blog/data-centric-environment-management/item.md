@@ -8,7 +8,6 @@ taxonomy:
     tag:
         - freckles
         - freckelize
-        - way-too-long
 author: 'Markus Binsteiner'
 toc:
     headinglevel: 3
