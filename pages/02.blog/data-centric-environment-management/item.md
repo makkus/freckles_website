@@ -18,7 +18,7 @@ I hate repetition. And I especially hate repetitive work. Unfortunately -- proba
 
 If you are working in I.T., chances are you hate repetitive work also. Luckily, a lot of I.T. work is devoted to cutting down on repetitive work. Because, after all, that's what computers are good at: give them the same problem several times, and they'll work on it the same way all those several times. Without complaining, mostly. Even if they have to do it repetitively a million-billion times and then a million-billion times again.
 
-Besides any potential personal aversion against repetitive work one might have there is another reason humans shouldn't be doing repetitive work if a computer can do it: the chance of making a mistake grows the more often you do a repetitive thing. Computers either do it always wrong, or -- better -- always right. Provided, of course, somebody wrote tests for all possible and impossible edge cases. Which, obviously, always happens.
+Besides any potential personal aversion against repetitive work one might have there is another reason humans shouldn't be doing repetitive work if a computer can do it: the chance of making a mistake grows the more often you do a repetitive thing. Computers either do it always wrong, or, better: always right. Provided, of course, somebody wrote tests for all possible and impossible edge cases. Which, naturally, we all do, every time.
 
 ===
 
@@ -36,31 +36,31 @@ Not only that, if the computer would know what kind of platform/distribution/ver
 
 What would be necessary is somebody preparing those sort of recipes, best practices and platform-dependent instructions for all the potential types of data we come across. In a way that the computer can understand. But, the good thing is, we could do that in a collaborative and evolutionary fashion, starting off with a simple use-case, and build on top of that to support more options, features, and platforms in the future. We'd have one place to improve a recipe for a give use-case or type of data, and that recipe would go through the normal stages of software development until it can be considered stable and comprehensive enough. 
 
-So, what's left is the glue, an application that runs on the computer, is pointed at the data we are interested in, parses that data (and potential augmenting metadata), chooses the right recipes for that type of data and platform it runs on, and executes those recipes in the way the data/metadata demands.
+So, what's left is the glue, an application that runs on the computer, is pointed at the data we are interested in, parses that data (and potentially existing augmenting metadata), chooses the right recipes for that type of data and platform it runs on, and executes those recipes in the way the data/metadata demands.
 
-There are two types of existing applications that do parts of what I'm describing: configuration management engines like [Ansible](https://ansible.com), [SaltStack](https://saltstack.com/), [Puppet](https://puppet.com), etc., and build systems like [make](https://www.gnu.org/software/make/), [maven](https://maven.apache.org/), [Rake](https://github.com/ruby/rake) and so on. But those are either focused on a bigger infrastructure and network environment, only understand a certain type of data (Java project, Ruby project, ...), or are very low-level and don't have the building blocks to manipulate the state of a machine in an efficient way. There might be other tools, but if there are, I don't know about them.
+There are two classes of existing applications that do parts of what I'm describing: configuration management engines like [Ansible](https://ansible.com), [SaltStack](https://saltstack.com/), [Puppet](https://puppet.com), etc., and build systems like [make](https://www.gnu.org/software/make/), [maven](https://maven.apache.org/), [Rake](https://github.com/ruby/rake) and so on. But those are either focused on a bigger infrastructure and network environment, only understand a certain type of data (Java project, Ruby project, ...), or are very low-level and don't have the building blocks to manipulate the state of a machine in an efficient way. There might be other tools, but if there are, I don't know about them.
 
-Now, all of this led me to work on [freckelize](https://docs.freckles.io/en/latest/freckelize_command.html). `freckelize` is part of a project called [freckles](https://github.com/makkus/freckles) which is designed as a layer on top of 'Ansible', and is an experiment to find ways to re-use all those existing tasty [Ansible](https://ansible.com) [modules](http://docs.ansible.com/list_of_all_modules.html) and [roles](https://galaxy.ansible.com/) for things beside 'traditional' configuration management.
+Now, all of this led me to work on [freckelize](https://docs.freckles.io/en/latest/freckelize_command.html). `freckelize` is part of a project called [freckles](https://github.com/makkus/freckles) which is designed as a layer on top of 'Ansible', and is an experiment to find ways to re-use all those existing tasty [Ansible](https://ansible.com) [modules](http://docs.ansible.com/list_of_all_modules.html) and [roles](https://galaxy.ansible.com/) for things besides 'traditional' configuration management.
 
-In this blog post I'm not going into too much detail about how `freckelize` works, what features beside the basic ones it has, what the security implications of using a tool like that are. And anything else that might distract from getting across the basic idea behind it. 
+In this blog post I'm not going into too much detail about how `freckelize` works, what features aside from the basic ones it has, what the security implications of using a tool like that are. And anything else that might distract from getting across the basic idea behind it. I'll write about all that in a followup post.
 
-To illustrate that basic idea, I'll use the very simple example of hosting a static webpage, where the data we work with is a simple, and single, html file. I also wrote a more in-depth blog post about this usage scenario, so if you are interested in those details, check it out [here](XXXX).
+So, to illustrate that basic idea I'll use the very simple example of hosting a static webpage, where the data we work with is a single html file. I also wrote a more in-depth blog post about this exact usage scenario, so if you are interested in those details, check it out [here](XXXX) later.
 
 ---
 
-**NOTE**: the 'static-website' recipe I'm using below is currently only tested on Debian Stretch
+**NOTE**: the 'static-website' recipe I'm using below is currently only tested on Debian Stretch. Help me improve it?
 
 ---
 
 The example dataset -- a single html file, plus an optional metadata file named `.freckle` -- can be found here: [https://github.com/freckles-io/example-static-webpage](https://github.com/freckles-io/example-static-webpage).
 
-Let's put those two files in a folder called `example-simple-website`. The `index.html` file looks like this:
+Let's put those two files in a folder called `example-static-website`. The `index.html` file looks like this:
 
 ```html
 <!DOCTYPE html>
 <html>
 <body>
-<h1>Now, what is this?</h1>
+<h1>Now, what is all this?</h1>
 <p>No idea at all, mate.</p>
 </body>
 </html>
@@ -74,7 +74,7 @@ And this is `.freckle` file, which contains additional metadata:
     static_website_port: 80            # port the webserver listens to
 ```
 
-This latter `.freckle` file is optional, but useful to adjust some of `freckelize`'s behavior. It uses `yaml` syntax, and contains a list of types of data to be considered, including potential variables per type. In this case it contains two variables, which both are set to default values, which means that this file doesn't affect behavior just yet.
+This latter `.freckle` file is optional, but useful to adjust some of `freckelize`'s behavior. It uses `yaml` syntax, and, at it's root level, contains a list of types of data to be considered, including potential variables per type. In this case it contains two variables, which both are set to default values, which means that this file doesn't affect behavior just yet.
 
 So, this is what you have to do (assuming `freckles` is already installed) to install a webserver (`nginx` in this case) and configure it to host our website:
 
@@ -82,27 +82,27 @@ So, this is what you have to do (assuming `freckles` is already installed) to in
 freckelize static-website -f example-simple-website
 ```
 
-Done. Check if it's working by visiting: [http://127.0.0.1](http://127.0.0.1)
+Done. Simple, he? Check if it's working by visiting: [http://127.0.0.1](http://127.0.0.1)
 
-Since this folder already contains a '.freckle' file that includes the 'static-website' item, we could have just omitted the 'static-website' command:
+Since this folder already contains a '.freckle' file that includes the 'static-website' type, we could have just omitted the 'static-website' command:
 
 ```
 freckelize -f example-simple-website
 ```
 
-In the case that we don't have that folder on our local machine but only on Github, we can let `freckelize` also clone it for us:
+In the case that we don't have that folder on our local machine but only on Github, we can let `freckelize` also clone it for us, before doing it's thing:
 
 ```
 freckelize -f https://github.com/freckles-io/example-static-webpage.git -t /var/lib/freckles
 ```
 
-This will check out the repository as a sub-folder of `/var/lib/freckles` (which is a nice place to collect those sort of folders). Then it'll do the same things it did before using the local folder.
+This will check out the repository as a sub-folder of `/var/lib/freckles` (which is a nice place to collect those sort of folders). Then it'll do exactly what it did before, when using just the local folder.
 
-There are more scenarios `freckelize` supports, like for example pointing it to a remote tarball of the data. Refer to [the documentation](https://docs.freckles.io) for details. In the future, anyway. Need to re-write parts of that documentation to bring it up-to-date. Sorry.
+There are more scenarios `freckelize` supports, like for example pointing it to a remote tarball of the data. Refer to [the documentation](https://docs.freckles.io) for details. In the future, anyway. Need to re-write parts of that documentation to bring it up-to-date. Soooooorry.
 
-As an example this is not really impressive, I'm sure, as this is something that would not take a lot of time to do by hand. Just a `sudo apt-get install nginx`, and some configuration editing somewhere in `/etc/nginx/`.
+As an example this is not really impressive, I'm sure, as this is something that would not take a lot of time to do by hand. Just a `sudo apt-get install nginx`, and some configuration editing somewhere in `/etc/nginx/`. Or a simple Ansible playbook.
 
-To illustrate how easy it is to accomplish more complex tasks, let's say we want to host that website on a VPS somewhere, via https and a (valid) [Let's encrypt](https://letsencrypt.org/) certificate. This is supported by the `static-website` ([source](XXX))recipe ('adapter' in `freckelize`-speak). We need to provide a bit more information to `freckelize` though, as it wouldn't know the domain name to use, and the email address the folks over at "Let's encrypt" require. Also, we need to configure DNS so that the domain name we use points to the VPS IP address. This has to be done manually, and since it depends a lot on the providers that are used I won't write about how to do that.
+To illustrate how easy it is to accomplish more complex tasks: let's say we want to host that website on a VPS somewhere, via https and a (valid) [Let's encrypt](https://letsencrypt.org/) certificate. This is supported by the `static-website` ([source](https://github.com/freckles-io/adapters/tree/master/web/static-website)) recipe ('adapter' in `freckelize`-speak). We need to provide a bit more information to `freckelize` though, as it wouldn't know the domain name to use, and the email address the folks over at "Let's encrypt" require. Also, we need to configure DNS so that the domain name we use points to the VPS IP address. This has to be done manually, and since it depends a lot on the providers that are used I won't write about how to do that.
 
 Let's edit the `.freckle` file:
 
@@ -117,14 +117,14 @@ Let's edit the `.freckle` file:
     lets_encrypt_email: makkus@frkl.io
 ```
 
-We leave the port as 80, the adapter will automatically create a vhost configuration to forward all traffic to the default https port (443). The adapter is written in a way that, if it encounters the `lets_encrypt_email` variable with a string other than 'none', it'll use that value as email address and request a https certificate for the domain specified from "Let's encrypt". In addition, it'll setup a cron job that makes sure that certificate will be re-newed before it expires.
+We leave the port as '80', the adapter will automatically create a vhost configuration to forward all traffic to the default https port (443) if configured to use https. The adapter is written in a way that, if it encounters the `lets_encrypt_email` variable with a string other than 'none', it'll use that value as email address and request a https certificate for the domain specified from the "Let's encrypt" service. In addition, it'll setup a cron job that makes sure that certificate will be re-newed before it expires.
 
-So, that was that. I hope I made at least a tiny bit of sense...
+So, that was that. I hope all that made at least a tiny bit of sense except to me...
 
-There's a lot more to be said. For example, how that is different from 'normal' configuration management, why one would choose one over the other, how one could compliment the other, how that could be used with all types of technologies like LXC, Docker, Vagrant. What the disadvantages of using this kind of thing are (I'm sure the opinionated part of the internet will collectively come up with all of them in no-time). And what more could be done I haven't even hinted at yet.
+There's a lot more to be said. For example, how that is different from 'normal' configuration management, why one would choose one over the other, how one could compliment the other, how that could be used with all types of technologies like LXC, Docker, Vagrant. What the disadvantages of using this kind of thing are, and how stupid it is anyway (I'm sure that tiny opinionated part of the internet could collectively come up with an exhaustive list in no-time). And what more could be done with it that I haven't even hinted at yet.
 
-My plan is to write about all that and more in the future, if it looks like there is any interest. If not, I might anyway :-)
+My plan is to write about all that and more in the future, if it looks like there is any interest. If not, I might do anyway though :-)
 
-So, if you want, please check back here every now and then.
+So, please, do check back here every now and then.
 
-Also, please get in touch if you have questions, or suggestions. Either via [email](mailto:makkus@posteo.de), [gitter](https://gitter.im/freckles-io/Lobby), or a [Github issue](https://github.com/makkus/freckles/issues).
+Also, get in touch if you have questions, or suggestions. Either via [email](mailto:makkus@posteo.de), [gitter](https://gitter.im/freckles-io/Lobby), or a [Github issue](https://github.com/makkus/freckles/issues).
