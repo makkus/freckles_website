@@ -13,7 +13,7 @@ toc:
     headinglevel: 3
 ---
 
-I hate repetition. And I especially hate repetitive work. Unfortunately -- probably because of that whole thing with that apple 6000 years ago -- I always find myself doing repetitive work. Even when I always always always go out of my way to avoid doing repetitive work. Often I find myself writing scripts which take me 10 times longer to write than doing the repetitive thing I try to avoid a million-billion times by hand. 
+I hate repetition. And I especially hate repetitive work. Unfortunately -- probably because of that whole thing with that apple 6000 years ago -- I always find myself doing repetitive work. Even when I always always always go out of my way to avoid doing repetitive work. Often I find myself writing scripts which take me 10 times longer to write than what it'd take to do the repetitive thing I try to avoid a million-billion times by hand. 
 
 If you are working in I.T., chances are you hate repetitive work also. Luckily, a lot of I.T. work is devoted to cutting down on repetitive work. Because, after all, that's what computers are good at: give them the same problem several times, and they'll work on it the same way all those several times. Without complaining, mostly. Even if they have to do it repetitively a million-billion times and then a million-billion times again.
 
