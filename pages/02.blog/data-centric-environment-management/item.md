@@ -1,7 +1,7 @@
 ---
 title: "Data-centric environment management"
 published: true
-date: '13-01-2018 06:00'
+date: '22-01-2018 18:00'
 taxonomy:
     category:
         - blog

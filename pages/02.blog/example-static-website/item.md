@@ -1,7 +1,7 @@
 ---
 title: "freckelize: static website"
 published: true
-date: '22-01-2018 06:00'
+date: '23-01-2018 18:00'
 taxonomy:
     category:
         - blog
