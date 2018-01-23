@@ -184,6 +184,7 @@ $ cd ~/dotfiles
 
 $ find|grep /.freckle$
 
+./sec/.freckle
 ./terminal/dev/.freckle
 ./terminal/extra/.freckle
 ./terminal/minimal/.freckle
