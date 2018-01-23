@@ -21,7 +21,7 @@ Besides any potential personal aversion against repetitive work one might have t
 
 ===
 
-So, long story short, there is one (non-obvious, but very generic) repetitive thing that, over the years, annoyed me more than other repetitive things: setting up an environment on a computer (virtual, physical, whatever) in order for this computer to deal with a set of files/data that is of a type it isn't prepared to deal with yet. 
+So, long story short, there is one (non-obvious, but very generic) repetitive thing that, over the years, annoyed me more than other repetitive things: setting up an environment on a computer (virtual, physical, whatever) in order for this computer to deal with a set of files/data that is of a type the computer isn't prepared to deal with yet. 
 
 For example: 
 

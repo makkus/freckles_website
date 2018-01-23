@@ -227,7 +227,7 @@ How to install applications that are related to the dotfiles we use is the topic
 
 This is a huge can of worms, and although it sort of works now within *freckles* for my needs, there is still quite a bit of work to be done to make the implementation cleaner, and to support more than the few package managers I implemented support for so far. If you want to help out and contribute support for a package manager (nodejs anyone?), let me know and I'll explain the (few) things that need to be put in place.
 
-As I've mentioned, I use *nix* for most of my user-space applications. Not for applications in my '**minimal**' profile though, as if I only use that I don't want the additional overhead of having to install *nix* itself.
+As I've mentioned, I use *nix* for most of my user-space applications. Not for applications in my '**minimal**' profile though, because I don't want the additional overhead of having to install *nix* for a few terminal appplications.
 
 `frecklecute` can (in most cases) figure out which package managers it needs to install automatically, so there is no need to provide a directive to instruct it to do so. 
 
