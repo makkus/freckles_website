@@ -44,7 +44,7 @@ Now, all of this led me to work on [freckelize](https://docs.freckles.io/en/late
 
 In this blog post I'm not going into too much detail about how `freckelize` works, what features aside from the basic ones it has, what the security implications of using a tool like that are. And anything else that might distract from getting across the basic idea behind it. I'll write about all that in a followup post.
 
-So, to illustrate that basic idea I'll use the very simple example of hosting a static webpage, where the data we work with is a single html file. I also wrote a more in-depth blog post about this exact usage scenario, so if you are interested in those details, check it out [here](XXXX) later.
+So, to illustrate that basic idea I'll use the very simple example of hosting a static webpage, where the data we work with is a single html file. I also wrote a more in-depth blog post about this exact usage scenario, so if you are interested in those details, check it out [here](/blog/example-static-website) later.
 
 ---
 
