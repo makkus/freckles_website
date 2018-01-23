@@ -5,6 +5,7 @@ taxonomy:
 css_suffix: widget-about
 surround: authorzo
 image: mb.png
+image_title: "Gotta find a picture where I wear a suit. Gotta impress potential employers..."
 social:
   - icon: envelope
     url: "mailto:makkus@frkl.io"

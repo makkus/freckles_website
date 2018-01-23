@@ -1,9 +1,9 @@
 <div class="authorzo">
   <div class="widget widget-about">
     <div class="widget-about-img">
-      <a href="{{ module.media.images[module.header.image].url }}">
-        <img src="{{ module.media.images[module.header.image].url }}">"
-      </a>
+        <!-- <a href="{{ module.media.images[module.header.image].url }}"> -->
+        <img src="{{ module.media.images[module.header.image].url }}" title="{{ module.header.image_title }}">
+        <!-- </a> -->
     </div>
     {{ module.content }}
     {% if module.header.social %}
