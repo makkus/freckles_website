@@ -13,9 +13,11 @@ toc:
     headinglevel: 3
 ---
 
-**tl;dr**: Imagine you get a piece of data, some folder or zip file from a friend. It doesn't matter what it is. Some source code in Python or Java or Cobol. Their dissertation in LaTEX. A backup of a Wordpress instance. A blender project. Anything, really.
+**tl;dr**: Imagine you get a piece of data, some folder or zip file from a friend. It doesn't matter what it is. Some source code in Python or Java or Cobol. Their dissertation in LaTEX. A backup of a Wordpress instance. A blender project. Research data. Anything, really.
 
-Imagine there is an application you can point to that data and run it. Imagine that run sets up your laptop so that you can instantly work with or use that data, without you having to do anything else. No installing of applications by hand, no configuration. No compiling. That is what this is about.
+Imagine there is an application you can just point to that folder, and run it. Imagine that run automatically sets up your laptop so that you can instantly work with or use that data. Without you having to do anything else. No installing of applications by hand, not having to find the right versions of those applications half the time, no configuration. No compiling. 
+
+That is what this is about.
 
 ===
 
