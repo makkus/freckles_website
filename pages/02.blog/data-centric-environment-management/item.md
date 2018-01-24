@@ -8,7 +8,7 @@ taxonomy:
     tag:
         - freckles
         - freckelize
-author: 'Markus Binsteiner**
+author: 'Markus Binsteiner'
 toc:
     headinglevel: 3
 ---
