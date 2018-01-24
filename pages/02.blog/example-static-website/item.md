@@ -159,7 +159,7 @@ What we can do in this situation is to use the `vagrant-dev` adapter to prepare 
 ```
 freckelize -r frkl:adapters vagrant-dev -f gh:freckles-io/example-static-website
 ```
-(Note: the `-r frkl:adapters` part is to update the [default adapter repository](https://github.com/freckles-io/adapters) that comes with the `freckles` package to the latest version -- the current one doesn't install the Virtualbox package yet)
+(Note: the `-r frkl:adapters` part is to update the [default adapter repository](https://github.com/freckles-io/adapters) that comes with the `freckles` package to the latest version -- the current one doesn't install the Virtualbox package yet. This should be unnecessary after the next release of the 'freckles' package)
 
 (Another note: we could have just provided the 'full' git url here, `freckelize` supports abbreviations though, which is nicer on the eye. The example here will be expanded to `https://github.com/freckles-io/example-static-website.git`.)
 
