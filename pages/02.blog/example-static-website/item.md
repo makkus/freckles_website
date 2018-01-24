@@ -21,10 +21,9 @@ As promised in [this post](/blog/data-centric-environment-management), here is a
 ---
 ** NOTE **
 
-For convenience -- and as a convention -- I might refer to the folder containing data that `freckelize` can handle as a 'freckle' or a 'freckle folder' in the following.
+For convenience -- and as a convention -- I might, below, refer to the folder containing data that is used by `freckelize` as a 'freckle' or a 'freckle folder'.
 
 ---
-
 
 ## Requirements
 
@@ -57,6 +56,8 @@ Now, assuming `freckelize` is already installed, we'd type this:
 freckelize static-website -f my_site/
 ```
 
+That is all that is needed. Check [http://127.0.0.1](http://127.0.0.1) in your browser to see if it worked.
+
 `freckelize` has so called 'adapters' which deal with certain types of data profiles. The adapter for the static website data profile is called, well, `static-website`, and you can find it's source [here](https://github.com/freckles-io/adapters/tree/master/web/static-website). What this adapter will do is:
 
 - installs the `nginx` webserver, to be run as the user who owns the `my_site` folder (as otherwise there might be no read permission -- this can be configured though, see below)
@@ -64,7 +65,7 @@ freckelize static-website -f my_site/
 - configures a virtual host that uses the `my_site` folder as it's root
 - makes sure the `nginx` systemd service is enabled and started
 
-The idea is that those adapters can be improved upon by the community. For example adding new features (in this case, maybe add an option to use the 'Apache' webserver instead of 'nginx'), or supporting other distributions, versions of distributions or even Operating Systems ('freckles' works on Mac OS X).
+The idea is that those adapters can be improved upon by the community. For example by adding new features (in this case, maybe add an option to use the 'Apache' webserver instead of 'nginx'), or supporting other distributions, versions of distributions or even Operating Systems ('freckles' works on Mac OS X for example).
 
 ### Adding metadata
 
@@ -101,14 +102,14 @@ After another `freckelize -f my_site` we can visit [http://127.0.0.1:8080](http:
 
 #### Interlude: using Vagrant
 
-In a lot of cases, it makes sense to not install the environment your development project needs directly on your machine, but into a virtual machine or container. That has a few advantages. For one, there is no change you break the setup of your development machine, which is usually annoying as well as time-consuming to fix. Then, if you setup the development environment needed on a new, vanilla machine, there is less chance you forget to specify dependencies that are already installed somewhere, maybe during the development of a different project. There are more advantages, and also a few caveats, but overall I think the consensus is doing it this way is good practice.
+In a lot of cases, it makes sense to not install the environment your development project needs directly on your machine, but into a virtual machine or container. That has a few advantages. For one, there is no chance you accidentally break the setup of your development machine, which is usually annoying as well as time-consuming to fix. Then, if you setup the development environment you need on a new, vanilla machine, there is less chance you forget to specify dependencies that are already installed somewhere, maybe during the development of a different, earlier project. There are more advantages, and also a few caveats, but overall I think the consensus is doing it this way is good practice.
 
 [Vagrant](https://vagrantup.com) is a tool to help with this practice. If you don't use it already, I recommend you check it out. There are other ways of achieving the same goal. Maybe using LXC/LXD, or, if you really must, Docker. Either of them is fine. For the purpose of explaining how one can use `freckelize` to support this practice I'll restrict myself to using Vagrant though.
 
 `frecklelize` comes with a few adapters by default. It also comes with a tool (`freckfreckfreck`) to list the currently available ones:
 
 ```
-freckfreckfreck list-adapters
+$ freckfreckfreck list-adapters
 
 Available adapters
 ==================
@@ -122,7 +123,7 @@ ansible-tasks
 debug-freckle
 -------------
 
-  desc: helper adapter, for developing other adapter
+  desc: helper adapter, for developing other adapters
   path: /home/vagrant/.local/inaugurate/conda/envs/inaugurate/lib/python2.7/site-packages/freckles/external/default_adapter_repo/freckles/debug-freckle/debug-freckle.adapter.freckle
 
 dotfiles
@@ -140,7 +141,7 @@ python-dev
 static-website
 --------------
 
-  desc: installs and configures a webserver to server a static website
+  desc: installs and configures a webserver to serve a static website
   path: /home/vagrant/.local/inaugurate/conda/envs/inaugurate/lib/python2.7/site-packages/freckles/external/default_adapter_repo/web/static-website/static-website.adapter.freckle
 
 vagrant-dev
@@ -152,22 +153,22 @@ vagrant-dev
 
 As can be seen from this output, there is one adapter called `vagrant-dev`. It's purpose is to install the Vagrant application, plus any [Vagrant providers](https://www.vagrantup.com/docs/providers/) and [plugins](https://www.vagrantup.com/docs/plugins/) one might need for a certain project. By default, it installs 'Vagrant' and the 'Virtualbox' provider (including 'Virtualbox' itself).
 
-So, let's assume we are on Mac OS X, and we don't want to install 'nginx' directly on our development machine. Plus, the `static-website` adapter doesn't currently support Mac OS X anyway. Also, let's assume we don't have the source code of our static webpage only on Github, not on our local machine. 
+So, let's assume we are on Mac OS X, and we don't want to install 'nginx' directly on our development machine. Plus, the `static-website` adapter doesn't currently support Mac OS X anyway. Also, let's assume we have the source code of our static webpage only on Github, not on our local machine. 
 
 What we can do in this situation is to use the `vagrant-dev` adapter to prepare the host machine to run Vagrant, then start the Vagrant box, and let `freckelize` provision the `static-website` environment within that box:
 
 ```
-freckelize -r frkl:adapters vagrant-dev -f gh:freckles-io/example-static-website
+freckelize -r frkl:adapters vagrant-dev -f gh:freckles-io/example-static-website-vagrant
 ```
 (Note: the `-r frkl:adapters` part is to update the [default adapter repository](https://github.com/freckles-io/adapters) that comes with the `freckles` package to the latest version -- the current one doesn't install the Virtualbox package yet. This should be unnecessary after the next release of the 'freckles' package)
 
 (Another note: we could have just provided the 'full' git url here, `freckelize` supports abbreviations though, which is nicer on the eye. The example here will be expanded to `https://github.com/freckles-io/example-static-website.git`.)
 
-Using the `static-website` command here overrides any adapters that could potentially be configured in the `.freckle` file. In this case that is what we want, as we don't want to run the `static-website` one, and `vagrant-dev` is not included. 
+Using the `static-website` command here overrides any adapters that could potentially be configured in the `.freckle` file. In this case that is what we want, as we don't want to run the `static-website` one, and `vagrant-dev` is not included in `.freckle`. 
 
 By default, if we are using a non-local folder as argument to the `-f` option, and if we don't specify the `-t` option, `freckelize` will check out the repository into `$HOME/freckles/<repo_name>`. This is appropriate for most development projects. For services, it's recommended to specify something like `-t /var/lib/freckles`, which will cause `freckelize` to use this location as the parent for the checkout.
 
-Now that that is done, we need a so called [`Vagrantfile`](https://www.vagrantup.com/docs/vagrantfile/) in the root of the freckle folder to tell Vagrant how to assemble the guest system. Ideally, this file would already be included with the rest of the data, but for this example that is not the case. This is how that file could look like:
+Now that that is done, we need a so called [`Vagrantfile`](https://www.vagrantup.com/docs/vagrantfile/) in the root of the freckle folder to tell Vagrant how to assemble the guest system. This file is already included in the example repository, this is it's content:
 
 ```
 # -*- mode: ruby -*-
@@ -189,10 +190,12 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
-     wget -O- https://freckles.io | bash -s -- freckelize -f /vagrant
+     wget -O- https://freckles.io | bash -s -- freckelize -v /vagrant/vagrant.vars.freckle -f /vagrant
   SHELL
 end
 ```
+
+(Ignore the `-v /vagrant/vagrant.vars.freckle` part for now, it's explained below)
 
 As you can see, this actually 'inaugurates' a new instance of the 'freckles' package inside the Vagrant box, then runs `freckelize` on our folder. This is not the most efficient way of doing this, but currently it's the easiest. I have a few ideas of making this faster and better, but I didn't have the time yet to work on that.
 
@@ -203,7 +206,7 @@ cd ~/freckles/example-static-website
 vagrant up
 ```
 
-If we still have the port '8080' in our `freckle` file, and no conflicting nginx server running on the host machine from previously, we should now already be able to access our webpage through Vagrants port forwarding: [http://127.0.0.1:8080](http://127.0.0.1:8080), using a webserver running in our Virtualbox guest.
+If we have no conflicting nginx server running on the host machine from a previous example, we should now already be able to access our webpage through Vagrant's port forwarding: [http://127.0.0.1:8080](http://127.0.0.1:8080), using a webserver running in our Virtualbox guest.
 
 #### Metadata: generic folder properties
 
