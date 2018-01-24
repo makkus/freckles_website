@@ -51,7 +51,7 @@ So, to illustrate that basic idea I'll use the very simple example of hosting a 
 
 ---
 
-The example dataset -- a single html file, plus an optional metadata file named `.freckle` -- can be found here: [https://github.com/freckles-io/example-static-webpage](https://github.com/freckles-io/example-static-webpage).
+The example dataset -- a single html file, plus an optional metadata file named `.freckle` -- can be found here: [https://github.com/freckles-io/example-static-website](https://github.com/freckles-io/example-static-website).
 
 Let's put those two files in a folder called `example-static-website`. The `index.html` file looks like this:
 
@@ -92,7 +92,7 @@ freckelize -f example-static-website
 In the case that we don't have that folder on our local machine but only on Github, we can let `freckelize` also clone it for us, before doing it's thing:
 
 ```
-freckelize -f https://github.com/freckles-io/example-static-webpage.git -t /var/lib/freckles
+freckelize -f https://github.com/freckles-io/example-static-website.git -t /var/lib/freckles
 ```
 
 This will check out the repository as a sub-folder of `/var/lib/freckles` (which is a nice place to collect those sort of folders). Then it'll do exactly what it did before, when using the local folder.
