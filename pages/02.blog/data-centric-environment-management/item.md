@@ -13,13 +13,15 @@ toc:
     headinglevel: 3
 ---
 
+tl;dr: Imagine you get a piece of data, some folder from a friend. It doesn't matter what it is. Some source code in Python or Java or Cobol. Their dissertation in LaTEX. A backup of a Wordpress instance. A blender project. Imagine there is an application you can point to that data and run it. Imagine that run sets up your laptop so that you can instantly work with or use that data, without you having to do anything else. That is what this is about.
+
+===
+
 I hate repetition. And I especially hate repetitive work. Unfortunately -- probably because of that whole thing with that apple 6000 years ago -- I always find myself doing repetitive work. Even when I always always always go out of my way to avoid doing repetitive work. Often I find myself writing scripts which take me 10 times longer to write than what it'd take me to do the repetitive thing I try to avoid a million-billion times by hand. 
 
 If you are working in I.T., chances are you hate repetitive work also. Luckily, a lot of I.T. work is devoted to cutting down on repetitive work. Because, after all, that's what computers are good at: give them the same problem several times, and they'll work on it the same way all those several times. Without complaining, mostly. Even if they have to do it repetitively a million-billion times and then a million-billion times again.
 
 Besides any potential personal aversion against repetitive work one might have there is another reason humans shouldn't be doing repetitive work if a computer can do it: the chance of making a mistake grows the more often you do a repetitive thing. And you might end up with a different end-result some of the time. Computers either do it always wrong, or if we're lucky, always right. Provided, of course, somebody wrote tests for all possible and impossible edge cases. Which, naturally, we all do, every time.
-
-===
 
 So, long story short, there is one (non-obvious, but very generic) repetitive thing that, over the years, annoyed me more than other repetitive things: setting up an environment on a computer (virtual, physical, whatever) in order for this computer to deal with a set of files/data that is of a type the computer isn't prepared to deal with yet. 
 
