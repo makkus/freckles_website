@@ -14,9 +14,9 @@ toc:
     headinglevel: 3
 ---
 
-Another example on how to use [`freckelize`](https://docs.freckles.io/en/latest/freckelize_command.html). This time we will setup a [Wordpress](https://wordpress.com) instance, both locally and later, on a public VPS.
+Another example on how to use [`freckelize`](https://docs.freckles.io/en/latest/freckelize_command.html). This time we will setup a [Wordpress](https://wordpress.com) instance, both locally and, later, on a public VPS.
 
-For this article, I'll assume you've already read [the post about the `static-website`-adapter](/blog/example-static-website).
+For this article, if you want to understand all of the things involved, I'd recommend reading [the post about the `static-website`-adapter](/blog/example-static-website).
 
 ===
 
