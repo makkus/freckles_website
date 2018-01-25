@@ -14,7 +14,7 @@ toc:
     headinglevel: 3
 ---
 
-This time I'll show how to setup a [Seafile](https://seafile.com) server using `freckelize`. I found *Seafile* always hard to install in an automated way. They don't offer system packages, and their (manual) setup scripts require user interaction, which makes it tricky to script. There are some non-interactive ways of using them, but those are a bit tricky to figure out.
+This article will show how to setup a [Seafile](https://seafile.com) server using `freckelize`. I found *Seafile* always hard to install in an automated way. They don't offer system packages, and their (manual) setup scripts require user interaction, which makes it tricky to script. There are some non-interactive ways of using them, but those are a bit tricky to figure out.
 
 ===
 
