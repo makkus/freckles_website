@@ -14,7 +14,7 @@ toc:
     headinglevel: 3
 ---
 
-This time I'll show how to setup a [Seafile](https://seafile.com) server using `freckelize`. I found *Seafile* always hard to install in an automated way. They don't offer system packages, and their (manual) setup scripts require user interaction, which makes it tricky to script. There are some non-interactive ways of using them, but those were quite hard to find.
+This time I'll show how to setup a [Seafile](https://seafile.com) server using `freckelize`. I found *Seafile* always hard to install in an automated way. They don't offer system packages, and their (manual) setup scripts require user interaction, which makes it tricky to script. There are some non-interactive ways of using them, but those are a bit tricky to figure out.
 
 ===
 
@@ -49,7 +49,7 @@ freckelize -pw true -r frkl:seafile -f blueprint:seafile_mysql -t /var/lib/freck
 
 A quick rundown of the command:
 
-- `bash <(curl https://freckles.io)`: this '[inaugurates](https://docs.freckles.io/en/latest/bootstrap.html#bootstrap-execution-in-one-go-inaugurate)' the *freckles* package if necessary. we can't use the normat `curl https://freckles.io ...` format because the following `freckelize` command is interactive in this case
+- `bash <(curl https://freckles.io)`: this '[inaugurates](https://docs.freckles.io/en/latest/bootstrap.html#bootstrap-execution-in-one-go-inaugurate)' the *freckles* package if necessary. we can't use the normat `curl https://freckles.io | bash ...` format because the following `freckelize` command is interactive in this case
 - `freckelize`: the command to actually execute
 - `-pw true`: forces `freckelize` to ask for the sudo password when needed, as that is required to install packages. this option can probably be omitted, but sometimes the `freckles` auto-check-if-sudo-required mechanism doesn't work. if you run this on system where you have password-less sudo (or are root), you can definitely leave that part out
 - `-r frkl:seafile`: because the seafile adapter and blueprint are not included in the default *freckles* package, we need to pull in an additional runtime context repository. the url `frkl:seafile` will resolve to: [https://github.com/freckles-io/seafile](https://github.com/freckles-io/seafile)
@@ -116,6 +116,11 @@ Voila.
 For bonus points, say your instance is hosted on a VPS with a public IP address, and you setup DNS so that 'example.frkl.io' points to that IP. If you want to make your Seafile server available via https on that domain, with a valid "Let's encrypt" certificate, all you have to do is edit the file `/var/lib/freckles/seafile/seafile/.freckle` to look like:
 
 ```
+- freckle:
+    owner: seafile
+    group: seafile
+
+- seafile:
     seafile_admin_email: makkus@frkl.io
     seafile_server_name: My_Seafile # 3-15 characters, only English letters, digits and underscore ('_') are allowed
     seafile_domain: example.frkl.io                 ## ip address or domain name used by this server
