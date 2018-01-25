@@ -1,7 +1,7 @@
 ---
 title: "freckelize: Wordpress"
 published: true
-date: '25-01-2018 18:00'
+date: '25-01-2018 06:00'
 taxonomy:
     category:
         - blog
@@ -39,7 +39,7 @@ To get a new instance of Wordpress running on your machine (or virtual machine, 
 bash <(curl https://freckles.io) freckelize -pw true -r frkl:wordpress -f blueprint:wordpress -t /var/lib/freckles
 ```
 
-If 'freckles' is already installed, the following will suffice:
+If *freckles* is already installed, the following will suffice:
 
 ```
 freckelize -pw true -r frkl:wordpress -f blueprint:wordpress -t /var/lib/freckles
@@ -132,7 +132,7 @@ For bonus points, say your instance is hosted on a VPS with a public IP address,
 
 The adapter is written in a way that if the `letsencrypt_email` is set to a string other than `none`, it'll request a "Let's encrypt"-certificate and setup 'nginx' to use it, forward all traffic from port 80 to port 443, and also setup a cron job to renew the certificate before it expires.
 
-So, after another `freckelize -pw true -r frkl:wordpress -f /var/lib/freckles/wordpress` all that should be done, and you can visit [https://example.frkl.io](https://example.frkl.io) (which won't work because I most likely deleted that instance by now, but you get the idea).
+So, after another `freckelize -pw true -r frkl:wordpress -f /var/lib/freckles/wordpress` all that should be done, and you can visit [https://example.frkl.io](https://example.frkl.io) (that link won't work because I most likely deleted that instance by now, but you get the idea).
 
 
 ## Details
