@@ -16,11 +16,11 @@ toc:
 
 This time I'll show how to setup a [Seafile](https://seafile.com) server using `freckelize`. I found *Seafile* always hard to install in an automated way. They don't offer system packages, and their (manual) setup scripts require user interaction, which makes it tricky to script. There are some non-interactive ways of using them, but those were quite hard to find.
 
+===
+
 I think nowadays *Seafile* also offers a Docker image. But you have to be of the opinion that using Docker for this kind of service is a good idea. Which I am not. But I digress, that's a different blog post :-)
 
 For this article, if you want to understand all of the things involved, I'd recommend reading [the post about the `static-website`-adapter](/blog/example-static-website).
-
-===
 
 ---
 ** NOTE **
