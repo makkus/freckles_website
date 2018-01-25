@@ -14,13 +14,13 @@ toc:
     headinglevel: 3
 ---
 
-This article will show how to setup a [Seafile](https://seafile.com) server using `freckelize`. I found *Seafile* always hard to install in an automated way. *Seafile* doesn't offer system packages, and their (manual) setup scripts require user interaction, which makes it tricky to run non-interactively. There are some ways of using those setup scripts without user input, but those are a bit tricky to figure out.
+This article will show how to setup a [Seafile](https://seafile.com) server using `freckelize`. I found *Seafile* always hard to install in an automated way. *Seafile* doesn't offer system packages, and their (manual) setup scripts require user interaction, which makes it tricky to run non-interactively. There are some ways of using those setup scripts without user input, but those are a non-obvious to figure out.
 
 ===
 
 I think nowadays *Seafile* also offers a Docker image. But you have to be of the opinion that using Docker for this kind of service is a good idea. Which I am not. But that's a different topic, and probably another blog post :-)
 
-For this article, if you want to understand all of the things involved, I'd also recommend reading [the post about the `static-website`-adapter](/blog/example-static-website). And also probably [the one about data-centric environment management](/blog/data-centric-environment-management).Not necessary for only the 'Quickstart' part though.
+For this article, if you want to understand all of the things involved, I'd also recommend reading [the post about the `static-website`-adapter](/blog/example-static-website). And also probably [the one about data-centric environment management](/blog/data-centric-environment-management). Not necessary for only the 'Quickstart' part though.
 
 ---
 ** NOTE **
@@ -51,9 +51,9 @@ A quick rundown of the command:
 
 - `bash <(curl https://freckles.io)`: this '[inaugurates](https://docs.freckles.io/en/latest/bootstrap.html#bootstrap-execution-in-one-go-inaugurate)' the *freckles* package if necessary. we can't use the normat `curl https://freckles.io | bash ...` format because the following `freckelize` command is interactive in this case
 - `freckelize`: the command to actually execute
-- `-pw true`: forces `freckelize` to ask for the sudo password when needed, as that is required to install packages. this option can probably be omitted, but sometimes the `freckles` auto-check-if-sudo-required mechanism doesn't work. if you run this on system where you have password-less sudo (or are root), you can definitely leave that part out
+- `-pw true`: forces `freckelize` to ask for the sudo password when needed, as that is required to install packages. this option can probably be omitted, but sometimes the `freckles` auto-check-if-sudo-required mechanism doesn't work. if you run this on a system where you have password-less sudo (or are root), you can leave that part out
 - `-r frkl:seafile`: because the seafile adapter and blueprint are not included in the default *freckles* package, we need to pull in an additional runtime context repository. the url `frkl:seafile` will resolve to: [https://github.com/freckles-io/seafile](https://github.com/freckles-io/seafile)
-- `-f blueprint:seafile_mysql`: `freckelize` supports ['blueprints'](https://docs.freckles.io/en/latest/freckelize_command.html#blueprints), which are sort of empty (or even partly or fully pre-created) freckle folder templates that make it easy to get started with a new type of data-based project. `freckelize` will replace templating variables (if necessary), then copy the result to your target folder
+- `-f blueprint:seafile_mysql`: `freckelize` supports ['blueprints'](https://docs.freckles.io/en/latest/freckelize_command.html#blueprints), which are sort of empty (or even partly or fully pre-created) freckle folder templates that make it easy to get started with a new type of data-based project. `freckelize` will replace templating variables (if necessary), then copy the result to your target folder. in this case, this is the blueprint used: [https://github.com/freckles-io/seafile/tree/master/blueprints/seafile_mysql](https://github.com/freckles-io/seafile/tree/master/blueprints/seafile_mysql)
 - `-t /var/lib/freckles`: the parent folder where your freckle folder(s) will end up in
 
 You also have the option of setting up a Seafile server [using the sqlite backend](https://manual.seafile.com/deploy/using_sqlite.html) instead of MySQL. To do that, use `-f blueprint:seafile_sqlite` instead of `-f blueprint:seafile_mysql`.
