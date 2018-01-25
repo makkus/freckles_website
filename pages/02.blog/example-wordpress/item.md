@@ -14,7 +14,7 @@ toc:
     headinglevel: 3
 ---
 
-Another example on how to use [`freckelize`](https://docs.freckles.io/en/latest/freckelize_command.html) to easily setup an environment using only (relevant) application data. This time we will setup a [Wordpress](https://wordpress.com) instance, both locally and later, on a public VPS.
+Another example on how to use [`freckelize`](https://docs.freckles.io/en/latest/freckelize_command.html). This time we will setup a [Wordpress](https://wordpress.com) instance, both locally and later, on a public VPS.
 
 For this article, I'll assume you've already read [the post about the `static-website`-adapter](/blog/example-static-website).
 
@@ -29,7 +29,7 @@ For convenience -- and as a convention -- I might, below, refer to the folder co
 
 ## Requirements
 
-Currently, only Debian Stretch is supported as a host platform (the platform that actually runs Wordpress). I haven't tested it on anything else yet. Ubuntu doesn't work so far because of an issue with Apparmor I haven't figured out yet. This should change in the future, as the plan is for every adapter like this one to support as many platforms as possible. 
+Currently, only Debian Stretch is supported as a host platform (the platform that actually runs Wordpress). I haven't tested it on anything else yet. Ubuntu doesn't work so far because of an issue with MySQL and Apparmor I haven't figured out yet. This should change in the future, as the plan is for every adapter like this one to support as many platforms as possible. 
 
 ## Quickstart
 
@@ -47,14 +47,14 @@ freckelize -pw true -r frkl:wordpress -f blueprint:wordpress -t /var/lib/freckle
 
 A quick rundown of the command:
 
-- `bash <(curl https://freckles.io)`: this '[inaugurates](https://docs.freckles.io/en/latest/bootstrap.html#bootstrap-execution-in-one-go-inaugurate)' the *freckles* package if necessary. we can't use the normat `curl https://freckles.io ...` format because the following `freckelize` command is interactive.
+- `bash <(curl https://freckles.io)`: this '[inaugurates](https://docs.freckles.io/en/latest/bootstrap.html#bootstrap-execution-in-one-go-inaugurate)' the *freckles* package if necessary. we can't use the normat `curl https://freckles.io ...` format because the following `freckelize` command is interactive in this case
 - `freckelize`: the command to actually execute
-- `-pw true`: forces `freckelize` to ask for the sudo password, as that is needed to install packages. this option can probably be omitted, but sometimes the `freckles` auto-sudo-required mechanism doesn't work. if you run this on system where you have passwordless sudo, you can definitely leave that part out
+- `-pw true`: forces `freckelize` to ask for the sudo password, as that is needed to install packages. this option can probably be omitted, but sometimes the `freckles` auto-check-if-sudo-required mechanism doesn't work. if you run this on system where you have password-less sudo (or are root), you can definitely leave that part out
 - `-r frkl:wordpress`: because the wordpress adapter and blueprint are not included in the default *freckles* package, we need to pull in an additional runtime context repository. the url `frkl:wordpress` will resolve to: [https://github.com/freckles-io/wordpress](https://github.com/freckles-io/wordpress)
-- `-f blueprint:wordpress`: `freckelize` supports ['blueprints'](XXX), which are sort of empty (or even partly or fully pre-created) freckle folder templates that make it easy to get started with a new type of data-based project. `freckelize` will replace templating variables (if necessary), then copy the result to your target folder
-- `-t /var/lib/freckles`: the parent folder where your freckle folder will end up
+- `-f blueprint:wordpress`: `freckelize` supports ['blueprints'](https://docs.freckles.io/en/latest/freckelize_command.html#blueprints), which are sort of empty (or even partly or fully pre-created) freckle folder templates that make it easy to get started with a new type of data-based project. `freckelize` will replace templating variables (if necessary), then copy the result to your target folder
+- `-t /var/lib/freckles`: the parent folder where your freckle folder(s) will end up in
 
-`freckelize` will ask you a few basic questions about the setup, then will proceed to setup MySQL, PHP (including necessary php-packages), and Wordpress:
+`freckelize` will ask you a few basic questions about the setup, then will proceed to setup and configure MySQL, PHP (including necessary php-packages), nginx, and Wordpress:
 
 ```
 $ freckelize -r frkl:wordpress -f blueprint:wordpress -t /var/lib/freckles
@@ -93,11 +93,13 @@ lets_encrypt_email [none]: none
    - changing wordpress file permissions =>  [WARNING]: Ignoring "sleep" as it is not used in "systemd"
 ok (changed)
    => ok (changed)
+   
+$ __
 ```
 
 Once that has finished, we visit [http://127.0.0.1](http://127.0.0.1) to see whether everything worked out. If it did, you should see the Wordpress language selection page.
 
-Every relevant detail about our Wordpress instance is now stored under `/var/lib/freckles/wordpress`. Once we did a bit of work on setting it up and adding content, we can back-up that folder. If we want to re-create that instance, all we need to do is put the backed-up folder on a new, vanilla machine, and run:
+Every relevant detail about our Wordpress instance is now stored under `/var/lib/freckles/wordpress`. Once we did a bit of work on setting up and configuring this Wordpress instance to our liking and add a bit of content, we can back-up that folder. If we want to re-create that instance, all we need to do is put the backed-up folder on a new, vanilla machine, and run:
 
 ```
 freckelize -pw true -r frkl:wordpress -f <path_to_backed_up_folder>
@@ -105,7 +107,7 @@ freckelize -pw true -r frkl:wordpress -f <path_to_backed_up_folder>
 
 Voila.
 
-Now, say your instance is hosted on a VPS with a public IP address, and you setup DNS so that 'example.frkl.io' points to that IP. If you want to make your Wordpress instance be available via https, with a valid "Let's encrypt" certificate, all you have to do is edit the file `/var/lib/freckles/wordpress/wordpress/.freckle` to look like:
+For bonus points, say your instance is hosted on a VPS with a public IP address, and you setup DNS so that 'example.frkl.io' points to that IP. If you want to make your Wordpress instance be available via https on that domain, with a valid "Let's encrypt" certificate, all you have to do is edit the file `/var/lib/freckles/wordpress/wordpress/.freckle` to look like:
 
 ```
 - freckle:
@@ -130,7 +132,7 @@ Now, say your instance is hosted on a VPS with a public IP address, and you setu
 
 The adapter is written in a way that if the `letsencrypt_email` is set to a string other than `none`, it'll request a "Let's encrypt"-certificate and setup 'nginx' to use it, forward all traffic from port 80 to port 443, and also setup a cron job to renew the certificate before it expires.
 
-So, after another `freckelize -pw true -r frkl:wordpress -f /var/lib/freckles/wordpress` all that should be done, and you can visit [https://example.frkl.io](https://example.frkl.io) (which won't work, of course, but you get the idea).
+So, after another `freckelize -pw true -r frkl:wordpress -f /var/lib/freckles/wordpress` all that should be done, and you can visit [https://example.frkl.io](https://example.frkl.io) (which won't work because I most likely deleted that instance by now, but you get the idea).
 
 
 ## Details
