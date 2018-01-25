@@ -20,7 +20,7 @@ This article will show how to setup a [Seafile](https://seafile.com) server usin
 
 I think nowadays *Seafile* also offers a Docker image. But you have to be of the opinion that using Docker for this kind of service is a good idea. Which I am not. But that's a different topic, and probably another blog post :-)
 
-For this article, if you want to understand all of the things involved, I'd also recommend reading [the post about the `static-website`-adapter](/blog/example-static-website). And also probably [the one about data-centric environment management](/blog/data-centric-environment-management). Not necessary for only the 'Quickstart' part though.
+For this article, if you want to understand all of the things involved, I'd recommend reading [the post about the `static-website`-adapter](/blog/example-static-website). And also probably [the one about data-centric environment management](/blog/data-centric-environment-management). Not necessary for only the 'Quickstart' part though.
 
 ---
 ** NOTE **
@@ -51,9 +51,9 @@ A quick rundown of the command:
 
 - `bash <(curl https://freckles.io)`: this '[inaugurates](https://docs.freckles.io/en/latest/bootstrap.html#bootstrap-execution-in-one-go-inaugurate)' the *freckles* package if necessary. we can't use the normat `curl https://freckles.io | bash ...` format because the following `freckelize` command is interactive in this case
 - `freckelize`: the command to actually execute
-- `-pw true`: forces `freckelize` to ask for the sudo password when needed, as that is required to install packages. this option can probably be omitted, but sometimes the `freckles` auto-check-if-sudo-required mechanism doesn't work. if you run this on a system where you have password-less sudo (or are root), you can leave that part out
-- `-r frkl:seafile`: because the seafile adapter and blueprint are not included in the default *freckles* package, we need to pull in an additional runtime context repository. the url `frkl:seafile` will resolve to: [https://github.com/freckles-io/seafile](https://github.com/freckles-io/seafile)
-- `-f blueprint:seafile_mysql`: `freckelize` supports ['blueprints'](https://docs.freckles.io/en/latest/freckelize_command.html#blueprints), which are sort of empty (or even partly or fully pre-created) freckle folder templates that make it easy to get started with a new type of data-based project. `freckelize` will replace templating variables (if necessary), then copy the result to your target folder. in this case, this is the blueprint used: [https://github.com/freckles-io/seafile/tree/master/blueprints/seafile_mysql](https://github.com/freckles-io/seafile/tree/master/blueprints/seafile_mysql)
+- `-pw true`: forces `freckelize` to ask for the sudo password when needed, as that is required to install packages. this option can probably be omitted, but sometimes the `freckles` auto-check-whether-sudo-is-required mechanism doesn't work. if you run this on a system where you have password-less sudo (or are root), you can leave this part out
+- `-r frkl:seafile`: because the seafile adapter and blueprints are not included in the default *freckles* package, we need to pull in an additional runtime context repository. the url `frkl:seafile` will resolve to: [https://github.com/freckles-io/seafile](https://github.com/freckles-io/seafile)
+- `-f blueprint:seafile_mysql`: `freckelize` supports ['blueprints'](https://docs.freckles.io/en/latest/freckelize_command.html#blueprints), which are sort of empty (or even partly or fully pre-created) freckle folder templates that make it easy to get started with a new type of data-based project. `freckelize` will replace templating variables (if necessary), then copy the result to your target folder. in our case here, this is the blueprint used: [https://github.com/freckles-io/seafile/tree/master/blueprints/seafile_mysql](https://github.com/freckles-io/seafile/tree/master/blueprints/seafile_mysql)
 - `-t /var/lib/freckles`: the parent folder where your freckle folder(s) will end up in
 
 You also have the option of setting up a Seafile server [using the sqlite backend](https://manual.seafile.com/deploy/using_sqlite.html) instead of MySQL. To do that, use `-f blueprint:seafile_sqlite` instead of `-f blueprint:seafile_mysql`.
@@ -113,7 +113,7 @@ freckelize -pw true -r frkl:seafile -f <path_to_backed_up_folder>
 
 Voila.
 
-For bonus points, say your instance is hosted on a VPS with a public IP address, and you setup DNS so that 'example.frkl.io' points to that IP. If you want to make your Seafile server available via https on that domain, with a valid "Let's encrypt" certificate, all you have to do is edit the file `/var/lib/freckles/seafile/seafile/.freckle` to look like:
+For bonus points, say your instance is hosted on a VPS with a public IP address, and you setup DNS so that 'example.frkl.io' points to that IP. If you want to make your Seafile server available via https on that domain, with a valid "Let's encrypt" certificate, all you have to do is edit the file `/var/lib/freckles/seafile/seafile/.freckle` to look something like:
 
 ```
 - freckle:
@@ -137,9 +137,9 @@ For bonus points, say your instance is hosted on a VPS with a public IP address,
     # seafile_disable_webdav: false
 ```
 
-The adapter is written in a way that if the `request_https_cert` is set `true`, it'll request a "Let's encrypt"-certificate using the provided domain name and email address, then setup 'nginx' to use that certificate as well as forward all traffic from port 80 to port 443. It also sets a cron job to renew the certificate before it expires.
+The adapter is written in a way that if the `request_https_cert` is set to `true`, it'll request a "Let's encrypt"-certificate using the provided domain name and email address, then setup 'nginx' to use that certificate as well as forward all traffic from port 80 to port 443. It also sets up a cron job to renew the certificate before it can expire.
 
-So, after another `freckelize -pw true -r frkl:seafile -f /var/lib/freckles/seafile` all that should be done, and you can visit [https://example.frkl.io](https://example.frkl.io) (that link won't work because I most likely deleted that instance by now, but you get the idea).
+So, after another `freckelize -pw true -r frkl:seafile -f /var/lib/freckles/seafile` all those changes should have been applied, and you can visit [https://example.frkl.io](https://example.frkl.io) to check if everything worked (that link won't work because I most likely deleted that instance by now, but you get the idea).
 
 
 ## Details
@@ -148,9 +148,9 @@ The rest of this article focuses quite a bit more on how `freckelize` and an ada
 
 ### Limitations
 
-One thing I'm not 100% happy about is how passwords are handled in the case where databases (or similar) need to be setup. Those are stored in a `.freckle` initially. I have a few thoughts on how to improve that, but not sure yet. Input is very much appreciated. Still early days...
+One thing I'm not 100% happy about is how passwords are handled in the case where databases (or similar) need to be setup. Those are stored in a `.freckle` initially. I have a few thoughts on how to improve that, but not sure yet. Input is very much appreciated. Still early days... For now, you might want to just manually remove the offending lines in the `.freckle` files in question after the install (being aware that if you delete the whole file you won't be able to restore a service using `freckelize` from just a backup anymore).
 
-Also, there are a lot of features/options that could be added to this adapter. For example, setting up OnlyOffice and add the integration to Seafile. As `freckelize` is really designed to enable the collaborative and easy development of those adapters, I hope that I'll find some people who are interested enough to continue working on this adapter, and make it proper and comprehensively useful.
+Also, there are a lot of features/options that could be added to this adapter. For example, setting up OnlyOffice and add the integration to Seafile. As `freckelize` is really designed to enable the collaborative and easy development of those adapters, I hope that I'll find some people who are interested enough to continue working on this adapter, and make it proper and comprehensively useful. And support other platforms!
 
 Lastly, I'll be using [`stow`](https://www.gnu.org/software/stow/) to symbolically link some of the data into place. I want it to be clear that this adapter could have been implemented differently, in a few different ways. This is how I chose to do it because it was the best way I could come up with, and I think it's a good solution. I'm happy to be shown at a better way though. The nice thing with those `freckelize` adapters is, there can be 2 which are implemented totally differently, but which can achieve the exact same thing.
 
@@ -161,8 +161,8 @@ The `seafile_msyql` adapter is a bit more involved than the `static-website` I w
 - the MySQL database used (well, only the table(s) used by the particular instance)
 - the `ccnet` and `conf` configuration folders
 - the `seafile-data` folder containing the actual files the server stores
-- probably also the `seahub-data`, not 100% sure
-- also, in the case of Seafile since the version of seafile can affect the MySQL table structure, it'd probably be good to have the latest version that was used with our data available. I'm not 100% happy with this, as I'd really like to separate data and application, but so far I haven't had the time to do that totally for this adapter
+- probably also the `seahub-data` folder, not 100% sure
+- also, in the case of Seafile since the version of seafile can affect the MySQL table structure, it'd probably be good to have the latest version that was used with our data available. I'm not 100% happy with this, as I'd really like to separate data and application, but so far I haven't had the time to do that to the fullest extend for this adapter
 
 #### MySQL
 
@@ -217,16 +217,16 @@ For the Seafile part of the data we create a second folder under `/var/lib/freck
     # seafile_disable_webdav: false
 ```
 
-As before, we set user/group permissions. This time to the user who will run the webserver. We don't need to `stow` that folder, as we can just is it in this location directly.
+As before, we set user/group permissions. This time to the user who will run the webserver. We don't need to `stow` that folder, as we can just use it in this location directly.
 
-The `seafile` part specifies some properties related to the database we've setup before, the webserver that will serve our Seahub frontend, as well as some optional Seafile configuration options. The request_https_cert` works similarly to what how requesting a https cert is described in the post about the `static-website` adapter. We'll leave that disabled for the purpose of this walk-through.
+The `seafile` part specifies some properties related to the database we've setup before, the webserver that will serve our Seahub frontend, as well as some optional Seafile configuration options. The `request_https_cert` works similarly to what how requesting a https cert is described in the post about the `static-website` adapter. We'll leave that disabled for the purpose of this tutorial.
 
-That is all the preparation we have to do. Now we can run `freckelize` against the base folder that contains our two freckle folders:
+That is all the preparation we need to do. Now we can run `freckelize` against the base folder that contains our two freckle folders:
 
 ```
 freckelize -f /var/lib/freckles/seafile
 ```
 
-This will link our empty files and folders into place, then setup MySQL, Seafile, and nginx so we end up with a fresh (and) empty Seafile server that we can visit at [http://127.0.0.1](http://127.0.0.1). As above, use the email address you configured, and the password 'change_me'.
+This will link our empty files and folders into place, then setup MySQL, Seafile, and nginx so we end up with a fresh (and) empty Seafile server that we can visit at [http://127.0.0.1](http://127.0.0.1). As above, use the email address you configured, and the password 'change_me'. If you want the "Let's encrypt" certificate as mentioned above, just set the `request_https_cert` value to `true`, and re-run your `freckelize` command.
 
-That is all there is to it.
+That is all there is to it. Any feedback and contributions more than welcome!
