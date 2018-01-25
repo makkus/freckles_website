@@ -20,7 +20,7 @@ This article will show how to setup a [Seafile](https://seafile.com) server usin
 
 I think nowadays *Seafile* also offers a Docker image. But you have to be of the opinion that using Docker for this kind of service is a good idea. Which I am not. But that's a different topic, and probably another blog post :-)
 
-For this article, if you want to understand all of the things involved, I'd also recommend reading [the post about the `static-website`-adapter](/blog/example-static-website). Not necessary for only the 'Quickstart' part though.
+For this article, if you want to understand all of the things involved, I'd also recommend reading [the post about the `static-website`-adapter](/blog/example-static-website). And also probably [the one about data-centric environment management](/blog/data-centric-environment-management).Not necessary for only the 'Quickstart' part though.
 
 ---
 ** NOTE **
