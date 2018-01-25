@@ -14,13 +14,13 @@ toc:
     headinglevel: 3
 ---
 
-This article will show how to setup a [Seafile](https://seafile.com) server using `freckelize`. I found *Seafile* always hard to install in an automated way. They don't offer system packages, and their (manual) setup scripts require user interaction, which makes it tricky to script. There are some non-interactive ways of using them, but those are a bit tricky to figure out.
+This article will show how to setup a [Seafile](https://seafile.com) server using `freckelize`. I found *Seafile* always hard to install in an automated way. *Seafile* doesn't offer system packages, and their (manual) setup scripts require user interaction, which makes it tricky to run non-interactively. There are some ways of using those setup scripts without user input, but those are a bit tricky to figure out.
 
 ===
 
-I think nowadays *Seafile* also offers a Docker image. But you have to be of the opinion that using Docker for this kind of service is a good idea. Which I am not. But I digress, that's a different blog post :-)
+I think nowadays *Seafile* also offers a Docker image. But you have to be of the opinion that using Docker for this kind of service is a good idea. Which I am not. But that's a different topic, and probably another blog post :-)
 
-For this article, if you want to understand all of the things involved, I'd recommend reading [the post about the `static-website`-adapter](/blog/example-static-website).
+For this article, if you want to understand all of the things involved, I'd also recommend reading [the post about the `static-website`-adapter](/blog/example-static-website). Not necessary for only the 'Quickstart' part though.
 
 ---
 ** NOTE **
@@ -31,7 +31,7 @@ For convenience -- and as a convention -- I might, below, refer to the folder co
 
 ## Requirements
 
-Currently, only Debian Stretch is supported as a host platform (the platform that actually runs Seafile). I haven't tested it on anything else yet. Ubuntu does work, but only when using the sqlite backend. For the MySQL one there is an issue with MySQL and Apparmor I haven't figured out yet. This should change in the future, as the plan is for every adapter like this one to support as many platforms as possible. 
+Currently, only Debian Stretch is supported as a host platform (the platform that actually runs Seafile). I haven't tested it on anything else yet. Ubuntu does work, but only when using the sqlite backend. For the MySQL one there is an issue with MySQL and Apparmor I haven't figured out yet. This should change in the future, and the plan is for every adapter like this one to support as many platforms as possible. 
 
 ## Quickstart
 
@@ -58,7 +58,7 @@ A quick rundown of the command:
 
 You also have the option of setting up a Seafile server [using the sqlite backend](https://manual.seafile.com/deploy/using_sqlite.html) instead of MySQL. To do that, use `-f blueprint:seafile_sqlite` instead of `-f blueprint:seafile_mysql`.
 
-After running the command, `freckelize` will ask you a few basic questions about the setup, then will proceed to setup and configure MySQL, then Seafile plus it's requirements, and finally the 'nginx' web-server:
+After running one of the above commands, `freckelize` will ask you a few basic questions about your setup, then will proceed to install and configure MySQL, Seafile plus it's requirements, and finally the 'nginx' web-server:
 
 ```
 $ freckelize -r frkl:seafile -f blueprint:seafile_mysql -t /var/lib/freckles
