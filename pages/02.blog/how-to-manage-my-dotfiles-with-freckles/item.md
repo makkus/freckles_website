@@ -114,8 +114,8 @@ I found [git-crypt](https://github.com/AGWA/git-crypt) to be an adequate solutio
 Checking out dotfiles, sym-linking them into the home directory, and installing applications is fun, but usually there are always additional tasks to be done before one can use a newly provisioned machine. Those are often not too many, so they can be done by hand. But you'll have to remember what exactly you did the last time you setup your machine, or you have to document it. I haven't been too good at either of those tasks in the past. Anyway, for my environment, those tasks include:
 
 - creating certain folders some applications expect but don't create themselves
-- copy my i3 X xsession desktop file to `/usr/share/xsessions`` so the login manager picks it up
-- copy the touchscreen configuration for my external monitor to `/etc/X11/xorg.conf.d``
+- copy my i3 X xsession desktop file to `/usr/share/xsessions` so the login manager picks it up
+- copy the touchscreen configuration for my external monitor to `/etc/X11/xorg.conf.d`
 - import my public gpg key stub (I'm using a Yubikey to hold the actual key)
 - set the trust of my gpg key to 'ultimate'
 

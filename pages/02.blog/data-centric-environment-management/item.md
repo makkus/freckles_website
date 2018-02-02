@@ -34,7 +34,7 @@ So, long story short, there is one (non-obvious, but very generic) repetitive th
 For example: 
 
 - if I have Python source files, I need to make sure I have (the right version of) Python installed, a virtualenv created, and dependencies installed via `pip`
-- if I have markdown files representing content for (this here) blog, I need to setup and configure a webserver (say, `nginx`), maybe install PHP and probably also some (the right) PHP libraries, then I have to download [grav](https://getgrav.org) and put it into the right folder so `nginx` can find it
+- if I have markdown files representing content for this here blog, I need to setup and configure a webserver (say, `nginx`), maybe install PHP and probably also some (the right) PHP libraries, then I have to download [grav](https://getgrav.org) and put it into the right folder so `nginx` can find it
 - if I have backup data of a service that needs migration to a new machine (virtual or not) I have to re-setup and configure the service, and restore the backup data in some way or other
 
 It appears to me that, if I know what type of data I deal with, and if I have a set of (ideally best) practices for that type of data, a computer would be able to do that sort of setting up for me. Right? ... RIGHT???
@@ -55,7 +55,7 @@ So, to illustrate that basic idea I'll use the very simple example of hosting a 
 
 ---
 
-**NOTE**: the 'static-website' recipe I'm using below is currently only tested on Debian Stretch. Help me improve it?
+**NOTE**: the 'static-website' recipe I'm using below is currently only tested on Debian Stretch. Help me improve it and add more supported platforms?
 
 ---
 
@@ -124,7 +124,7 @@ Let's edit the `.freckle` file:
     lets_encrypt_email: makkus@frkl.io
 ```
 
-We add a generic section about who should own the data (which will also determine the user `nginx` runs under). We leave the port as '80', the adapter will automatically create a vhost configuration to forward all traffic to the default https port (443) if configured to use https. The adapter is written in a way that, if it encounters the `lets_encrypt_email` variable with a string other than 'none', it'll use that value as email address and request a https certificate for the domain specified from the "Let's encrypt" service. In addition, it'll setup a cron job that makes sure that certificate will be re-newed before it expires.
+We add a generic section (always called '`freckle`') about who should own the data (which will also determine the user `nginx` runs under). We leave the port as '80', the adapter will automatically create a vhost configuration to forward all traffic to the default https port (443) if configured to use https. The adapter is written in a way that, if it encounters the `lets_encrypt_email` variable with a string other than 'none', it'll use that value as email address and request a https certificate for the domain specified from the "Let's encrypt" service. In addition, it'll setup a cron job that makes sure that certificate will be re-newed before it expires.
 
 So, that was that. I hope all that made at least a tiny bit of sense to anybody other than myself...
 
