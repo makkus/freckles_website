@@ -18,6 +18,7 @@ Another example on how to use [`freckelize`](https://docs.freckles.io/en/latest/
 
 For this article, if you want to understand all of the things involved, I'd recommend reading [the post about the `static-website`-adapter](/blog/example-static-website).
 
+
 ===
 
 ---
@@ -26,6 +27,20 @@ For this article, if you want to understand all of the things involved, I'd reco
 For convenience -- and as a convention -- I might, below, refer to the folder containing data that is used by `freckelize` as a 'freckle' or a 'freckle folder'.
 
 ---
+
+## Example install
+
+To illustrate what all this does, here's the command to install a new wordpress instance (including https Let's encrypt-certificate) on a newly provisioned (Debian Stretch) box and a screencast of what will happen after it is issued:
+
+    bash <(curl https://inaugurate.sh) freckelize -r frkl:wordpress -f blueprint:wordpress -t /var/lib/freckles
+
+
+![Wordpress install screencast](wordpress-install.ogv?resize=500)
+
+And here's the log as text: 
+
+<iframe src="https://pastebin.com/embed_iframe/EVrzyrMS" style="border:none;width:100%;height:250px"></iframe>
+
 
 ## Requirements
 
