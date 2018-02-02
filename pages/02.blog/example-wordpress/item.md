@@ -37,10 +37,7 @@ To illustrate what all this does, here's the command to install a new wordpress 
 
 ![Wordpress install screencast](wordpress-install.ogv?resize=500)
 
-And here's the log as text: 
-
-<iframe src="https://pastebin.com/embed_iframe/EVrzyrMS" style="border:none;width:100%;height:250px"></iframe>
-
+And here's the log as text: [https://pastebin.com/raw/EVrzyrMS](https://pastebin.com/raw/EVrzyrMS)
 
 ## Requirements
 
